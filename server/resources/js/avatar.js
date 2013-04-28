@@ -1,0 +1,1 @@
+console.log("avatar javascript resource loaded successfully!");

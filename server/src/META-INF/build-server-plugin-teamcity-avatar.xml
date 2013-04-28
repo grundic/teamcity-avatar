@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+        default-autowire="constructor"
+        >
+
+
+  <bean id="helloExtension" class="ru.mail.teamcity.avatar.extensions.pageExtension.AvatarExtension"/>
+
+  <bean id="avatarConfigurationController" class="ru.mail.teamcity.avatar.settings.AvatarConfigurationController"
+        init-method="register"/>
+
+  <bean id="avatarConfigTab"
+        class="jetbrains.buildServer.web.openapi.SimpleCustomTab"
+        init-method="register">
+    <property name="placeId">
+      <util:constant static-field="jetbrains.buildServer.web.openapi.PlaceId.MY_TOOLS_TABS"/>
+    </property>
+    <property name="tabTitle" value="Avatar"/>
+    <property name="pluginName">
+      <util:constant static-field="ru.mail.teamcity.avatar.AppConfiguration.PLUGIN_NAME"/>
+    </property>
+    <property name="includeUrl" value="settings/avatarConfiguration.jsp"/>
+  </bean>
+
+</beans>
