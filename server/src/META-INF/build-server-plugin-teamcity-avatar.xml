@@ -13,4 +13,6 @@
 
   <bean id="avatarProfileConfiguration" class="ru.mail.teamcity.avatar.web.AvatarProfileConfiguration"/>
 
+  <bean id="ajaxAvatarController" class="ru.mail.teamcity.avatar.web.AjaxAvatarController"/>
+
 </beans>
