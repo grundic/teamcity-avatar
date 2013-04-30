@@ -1,4 +1,4 @@
-package ru.mail.teamcity.avatar.settings;
+package ru.mail.teamcity.avatar.service;
 
 import jetbrains.buildServer.users.PropertyKey;
 import jetbrains.buildServer.users.SUser;
