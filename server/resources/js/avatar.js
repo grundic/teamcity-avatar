@@ -1,3 +1,8 @@
-console.log("avatar javascript resource loaded successfully!");
-
-$j("#beforeUserId").after('<img src="http://www.animated-gifs.eu/avatars-100x100-cartoons-mickey/0024.gif" alt="Goofy" height="18" width="18">');
+BS.ajaxRequest(window['base_uri'] + "/avatarAjax.html", {
+          onSuccess: function (transport) {
+            var avatarUrl = $j(transport.responseText).find("avatarUrl").text();
+            var avatarUrlHtml = '<img src="' + avatarUrl + '" alt="Goofy" height="18" width="18">';
+            $j("#beforeUserId").after(avatarUrlHtml);
+          }
+        }
+);
