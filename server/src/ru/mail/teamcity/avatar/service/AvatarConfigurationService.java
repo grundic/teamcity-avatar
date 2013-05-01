@@ -14,7 +14,7 @@ import java.util.Map;
 public class AvatarConfigurationService {
 
   public static final String AVATAR_URL = "avatarUrl";
-  private PropertyKey AVATAR_URL_KEY = new SimplePropertyKey(AVATAR_URL);
+  private final PropertyKey AVATAR_URL_KEY = new SimplePropertyKey(AVATAR_URL);
 
 
   public String getAvatarUrl(SUser user){
