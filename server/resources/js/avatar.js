@@ -14,7 +14,7 @@ var Avatar = {
    * Execute ajax request and get avatar url for username.
    */
   _getAvatarUrl: function (username, callback, param_hash) {
-    url = window['base_uri'] + "/avatarAjax.html";
+    var url = window['base_uri'] + "/avatarAjax.html";
     if (username) {
       url += "?username=" + username;
     }
