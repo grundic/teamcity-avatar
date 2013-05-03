@@ -51,12 +51,12 @@ public class AjaxAvatarController extends BaseController {
           String username = request.getParameter("username");
 
           SUser user;
-          if (null != username){
+          if (null != username) {
             user = getUser(username);
-          } else{
+          } else {
             user = SessionUser.getUser(request);
           }
-          if (null == user){
+          if (null == user) {
             return;
           }
 
@@ -79,11 +79,11 @@ public class AjaxAvatarController extends BaseController {
     return null;
   }
 
-  private SUser getUser(String username){
+  private SUser getUser(String username) {
     SUser user = userModel.findUserAccount(null, username);
-    if (null == user){
+    if (null == user) {
       Matcher matcher = USER_EXTENDED_NAME.matcher(username);
-      if (matcher.find()){
+      if (matcher.find()) {
         user = userModel.findUserAccount(null, matcher.group(1));
       }
     }
