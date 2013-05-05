@@ -1,0 +1,9 @@
+<label for="avatarUrl">Avatar url:</label>
+        <input class="textfield" type="text" id="avatarUrl" name="avatarUrl" style="width: 30em;" maxlength="256"
+        value=#if($avatarUrl) "$avatarUrl" #else "" #end />
+
+<span>
+  #if($avatarUrl)
+      <img src="$avatarUrl" alt="" style="">
+  #end
+</span>

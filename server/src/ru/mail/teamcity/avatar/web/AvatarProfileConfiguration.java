@@ -9,10 +9,14 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.mail.teamcity.avatar.AppConfiguration;
-import ru.mail.teamcity.avatar.service.AvatarConfigurationService;
+import ru.mail.teamcity.avatar.service.AvatarService;
+import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -21,12 +25,12 @@ import java.util.Map;
  */
 public class AvatarProfileConfiguration extends SimpleCustomTab {
 
-  private final AvatarConfigurationService avatarConfigurationService;
+  private final AvatarService myAvatarService;
 
   public AvatarProfileConfiguration(@NotNull PagePlaces pagePlaces,
                                     @NotNull WebControllerManager controllerManager,
                                     @NotNull PluginDescriptor descriptor,
-                                    @NotNull AvatarConfigurationService avatarConfigurationService) {
+                                    @NotNull AvatarService avatarService) {
 
     super(
             pagePlaces,
@@ -35,7 +39,7 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
             descriptor.getPluginResourcesPath("settings/avatarConfiguration.jsp"),
             "Avatar"
     );
-    this.avatarConfigurationService = avatarConfigurationService;
+    this.myAvatarService = avatarService;
 
     register();
 
@@ -44,8 +48,13 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
       @Override
       protected ModelAndView doHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws Exception {
         SUser user = SessionUser.getUser(request);
+        AvatarSupplier avatarSupplier = WebHelper.getAvatarSupplier(request);
+        if (null == avatarSupplier) {
+          // TODO: add error handling
+          return null;
+        }
 
-        AvatarProfileConfiguration.this.avatarConfigurationService.setAvatarUrl(user, request.getParameter(AvatarConfigurationService.AVATAR_URL));
+        myAvatarService.store(user, avatarSupplier, request.getParameterMap());
         return new ModelAndView(new RedirectView(String.format("profile.html?tab=%s", AppConfiguration.PLUGIN_NAME), true));
       }
     });
@@ -54,6 +63,13 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
   @Override
   public void fillModel(@NotNull Map<String, Object> model, @NotNull HttpServletRequest request) {
     super.fillModel(model, request);
-    model.put("avatarConfigurationService", avatarConfigurationService);
+    SUser user = SessionUser.getUser(request);
+    AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(user);
+
+    model.put("avatarService", myAvatarService);
+    if (null != avatarSupplier) {
+      model.put("selectedAvatarSupplier", avatarSupplier.getClass().getName());
+    }
+    model.put("suppliers", new ArrayList<Supplier>(Arrays.asList(Supplier.values())));
   }
 }

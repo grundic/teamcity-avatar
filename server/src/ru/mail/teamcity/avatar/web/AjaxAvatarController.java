@@ -12,11 +12,10 @@ import org.jdom.Text;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
-import ru.mail.teamcity.avatar.service.AvatarConfigurationService;
+import ru.mail.teamcity.avatar.service.AvatarService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,16 +26,16 @@ import java.util.regex.Pattern;
  */
 public class AjaxAvatarController extends BaseController {
 
-  private final AvatarConfigurationService avatarConfigurationService;
+  private final AvatarService avatarService;
   private final UserModel userModel;
 
   private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\((\\w+)\\)$");
 
   public AjaxAvatarController(
           @NotNull WebControllerManager manager,
-          @NotNull AvatarConfigurationService avatarConfigurationService,
+          @NotNull AvatarService avatarService,
           @NotNull UserModel userModel) {
-    this.avatarConfigurationService = avatarConfigurationService;
+    this.avatarService = avatarService;
     this.userModel = userModel;
     manager.registerController("/avatarAjax.html", this);
   }
@@ -60,13 +59,9 @@ public class AjaxAvatarController extends BaseController {
             return;
           }
 
-          Map<String, String> settings = avatarConfigurationService.getSettings(user);
-
-          for (String key : settings.keySet()) {
-            final Element configElement = new Element(key);
-            configElement.setContent(new Text(settings.get(key)));
-            xmlResponse.addContent(configElement);
-          }
+          final Element configElement = new Element("avatarUrl");
+          configElement.setContent(new Text(avatarService.getAvatarUrl(user)));
+          xmlResponse.addContent(configElement);
         } catch (Exception e) {
           Loggers.SERVER.warn(e.getMessage());
           Loggers.SERVER.debug(e);

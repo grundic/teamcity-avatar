@@ -14,6 +14,7 @@
             <element id="dir-copy" path="$PROJECT_DIR$/server/resources" />
           </element>
         </element>
+        <element id="library" level="project" name="velocity-1.7" />
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-server-plugin.xml" output-file-name="teamcity-plugin.xml" />
     </root>

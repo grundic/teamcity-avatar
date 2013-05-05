@@ -9,10 +9,12 @@
 
   <bean id="jsInjectionExtension" class="ru.mail.teamcity.avatar.extensions.pageExtension.JsInjectionExtension"/>
 
-  <bean id="avatarConfigurationService" class="ru.mail.teamcity.avatar.service.AvatarConfigurationService"/>
+  <bean id="avatarServiceImpl" class="ru.mail.teamcity.avatar.service.AvatarServiceImpl"/>
 
   <bean id="avatarProfileConfiguration" class="ru.mail.teamcity.avatar.web.AvatarProfileConfiguration"/>
 
   <bean id="ajaxAvatarController" class="ru.mail.teamcity.avatar.web.AjaxAvatarController"/>
+
+  <bean id="avatarSupplierAjaxController" class="ru.mail.teamcity.avatar.web.AvatarSupplierAjaxController"/>
 
 </beans>
