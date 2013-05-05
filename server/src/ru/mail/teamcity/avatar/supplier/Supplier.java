@@ -1,6 +1,9 @@
 package ru.mail.teamcity.avatar.supplier;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.impl.DisabledAvatarSupplier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +15,9 @@ import java.util.Map;
 
 public enum Supplier {
 
-  DIRECT_URL("Direct Url") {
-    public AvatarSupplier get() {
-      return new DirectUrlAvatarSupplier();
-    }
-  };
+  DISABLED(DisabledAvatarSupplier.class),
+  DIRECT_URL(DirectUrlAvatarSupplier.class);
+
 
   private static final Map<String, Supplier> stringMap = new HashMap<String, Supplier>();
 
@@ -25,24 +26,37 @@ public enum Supplier {
       stringMap.put(supplier.toString(), supplier);
   }
 
-  private Supplier(String name) {
-    this.name = name;
+  private Supplier(Class<? extends AvatarSupplier> clazz) {
+    this.clazz = clazz;
   }
 
   @Override
   public String toString() {
-    return name;
+    return clazz.getName();
   }
 
   public static Supplier fromString(String name) {
     return stringMap.get(name);
   }
 
-  public abstract AvatarSupplier get();
 
-  private String name;
+  @Nullable
+  public AvatarSupplier get(){
+    try {
+      return clazz.newInstance();
+    } catch (InstantiationException e) {
+      e.printStackTrace();
+      return null;
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 
-  public String getName() {
-    return name;
+  private Class<? extends AvatarSupplier> clazz;
+
+  public static void main(String[] args) {
+    AvatarSupplier supplier = Supplier.DIRECT_URL.get();
+    System.out.println(supplier.getOptionName());
   }
 }
