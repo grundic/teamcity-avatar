@@ -4,6 +4,7 @@ import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -27,6 +28,6 @@ public class DisabledAvatarSupplier implements AvatarSupplier {
 
   @NotNull
   public Map<String, String> getTemplateParams() {
-    return null;
+    return Collections.emptyMap();
   }
 }
