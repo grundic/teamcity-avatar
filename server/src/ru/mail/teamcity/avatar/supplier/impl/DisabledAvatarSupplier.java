@@ -27,7 +27,7 @@ public class DisabledAvatarSupplier implements AvatarSupplier {
   }
 
   @NotNull
-  public Map<String, String> getTemplateParams() {
+  public Map<String, String> getTemplateParams(@NotNull SUser user) {
     return Collections.emptyMap();
   }
 }

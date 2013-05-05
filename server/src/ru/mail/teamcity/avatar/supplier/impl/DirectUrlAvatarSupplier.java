@@ -28,9 +28,9 @@ public class DirectUrlAvatarSupplier implements AvatarSupplier {
   }
 
   @NotNull
-  public Map<String, String> getTemplateParams() {
+  public Map<String, String> getTemplateParams(@NotNull SUser user) {
     HashMap<String, String> params = new HashMap<String, String>();
-    params.put("avatarUrl", getAvatarUrl(null));
+    params.put("avatarUrl", getAvatarUrl(user));
     return params;
   }
 }
