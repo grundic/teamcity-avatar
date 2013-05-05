@@ -36,5 +36,10 @@ public interface AvatarSupplier {
   @NotNull
   public Map<String, String> getTemplateParams(@NotNull SUser user);
 
+  /*
+   * Store user data
+   */
+  public void store(SUser user, Map<String, String[]> params );
+
 
 }

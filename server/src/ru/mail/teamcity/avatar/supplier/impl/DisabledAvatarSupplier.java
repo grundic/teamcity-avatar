@@ -30,4 +30,7 @@ public class DisabledAvatarSupplier implements AvatarSupplier {
   public Map<String, String> getTemplateParams(@NotNull SUser user) {
     return Collections.emptyMap();
   }
+
+  public void store(SUser user, Map<String, String[]> params) {
+  }
 }
