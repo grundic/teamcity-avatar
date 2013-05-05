@@ -1,6 +1,5 @@
 package ru.mail.teamcity.avatar.supplier;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier;
 import ru.mail.teamcity.avatar.supplier.impl.DisabledAvatarSupplier;
@@ -41,7 +40,7 @@ public enum Supplier {
 
 
   @Nullable
-  public AvatarSupplier get(){
+  public AvatarSupplier get() {
     try {
       return clazz.newInstance();
     } catch (InstantiationException e) {
@@ -54,9 +53,4 @@ public enum Supplier {
   }
 
   private Class<? extends AvatarSupplier> clazz;
-
-  public static void main(String[] args) {
-    AvatarSupplier supplier = Supplier.DIRECT_URL.get();
-    System.out.println(supplier.getOptionName());
-  }
 }
