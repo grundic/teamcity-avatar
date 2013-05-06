@@ -39,7 +39,7 @@ public interface AvatarSupplier {
   /*
    * Store user data
    */
-  public void store(SUser user, Map<String, String[]> params );
+  public void store(SUser user, Map<String, String[]> params);
 
 
 }

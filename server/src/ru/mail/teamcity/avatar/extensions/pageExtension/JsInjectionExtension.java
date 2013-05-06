@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class JsInjectionExtension extends SimplePageExtension {
 
-  public JsInjectionExtension(@NotNull  PagePlaces pagePlaces, @NotNull PluginDescriptor descriptor) {
+  public JsInjectionExtension(@NotNull PagePlaces pagePlaces, @NotNull PluginDescriptor descriptor) {
     super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("extension.jsp"));
     addJsFile(descriptor.getPluginResourcesPath("js/avatar.js"));
     register();

@@ -4,10 +4,13 @@
   <info>
     <name>teamcity-avatar</name>
     <display-name>Plugin for displaying users avatars in Teamcity</display-name>
-    <version>@Plugin_Version@</version> <!-- will be replaced from script -->
+    <version>@Plugin_Version@</version>
+    <!-- will be replaced from script -->
     <vendor>
-      <name>@Plugin_Vendor@</name>  <!-- will be replaced from script -->
-      <url>@Plugin_Vendor_Url@</url> <!-- will be replaced from script -->
+      <name>@Plugin_Vendor@</name>
+      <!-- will be replaced from script -->
+      <url>@Plugin_Vendor_Url@</url>
+      <!-- will be replaced from script -->
     </vendor>
   </info>
   <deployment use-separate-classloader="true"/>

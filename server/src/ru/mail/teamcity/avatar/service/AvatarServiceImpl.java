@@ -41,12 +41,12 @@ public class AvatarServiceImpl implements AvatarService {
   @Nullable
   public AvatarSupplier getAvatarSupplier(@NotNull SUser user) {
     String value = user.getPropertyValue(PROPERTY_KEY);
-    if (null == value){
+    if (null == value) {
       return null;
     }
 
     Supplier supplier = Supplier.fromString(value);
-    if (null == supplier){
+    if (null == supplier) {
       LOG.error(String.format("Failed to locate supplier '%s' for user '%s'!", value, user.getName()));
       return null;
     }
@@ -56,7 +56,7 @@ public class AvatarServiceImpl implements AvatarService {
 
   public void store(@NotNull SUser user, @NotNull String avatarSupplier, @NotNull Map<String, String[]> params) {
     Supplier supplier = Supplier.fromString(avatarSupplier);
-    if (null == supplier){
+    if (null == supplier) {
       return;
     }
     store(user, avatarSupplier, params);
@@ -70,7 +70,7 @@ public class AvatarServiceImpl implements AvatarService {
   @Nullable
   public String getAvatarUrl(@NotNull SUser user) {
     AvatarSupplier avatarSupplier = getAvatarSupplier(user);
-    if (null == avatarSupplier){
+    if (null == avatarSupplier) {
       return null;
     }
     return avatarSupplier.getAvatarUrl(user);

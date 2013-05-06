@@ -33,5 +33,5 @@ public interface AvatarService {
    * Get avatar url for user
    */
   @Nullable
-  public String  getAvatarUrl(@NotNull SUser user);
+  public String getAvatarUrl(@NotNull SUser user);
 }
