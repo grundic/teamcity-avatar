@@ -52,5 +52,5 @@ public enum Supplier {
     }
   }
 
-  private Class<? extends AvatarSupplier> clazz;
+  private final Class<? extends AvatarSupplier> clazz;
 }
