@@ -48,8 +48,12 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
     List<String> bundledAvatars = new ArrayList<String>();
     File avatarsDir = new File(BUNDLED_AVATARS_PATH);
-    for (File avatar : avatarsDir.listFiles()) {
-      bundledAvatars.add(avatar.getName());
+
+    File[] files = avatarsDir.listFiles();
+    if (null != files) {
+      for (File avatar : files) {
+        bundledAvatars.add(avatar.getName());
+      }
     }
 
     params.put("bundledAvatars", bundledAvatars);
