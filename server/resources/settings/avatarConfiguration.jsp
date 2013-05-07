@@ -52,7 +52,7 @@
 
 
       <div id="supplierTemplate"
-           style="margin-top: 20px; margin-bottom: 15px; margin-left: 10px; border: 2px; border-style:dotted; padding: 10px">
+           style="margin-top: 20px; margin-bottom: 15px; margin-left: 10px; border: 2px; border-style:dotted; padding: 10px;">
       </div>
 
       <input type="submit" value="Save" class="btn"/>
