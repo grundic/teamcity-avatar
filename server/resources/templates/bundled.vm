@@ -1,0 +1,5 @@
+<select>
+  #foreach($avatar in $bundledAvatars)
+      <option value="$avatar">$avatar</option>
+  #end
+</select>

@@ -33,8 +33,8 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
   }
 
   @NotNull
-  public Map<String, String> getTemplateParams(@NotNull SUser user) {
-    HashMap<String, String> params = new HashMap<String, String>();
+  public Map<String, Object> getTemplateParams(@NotNull SUser user) {
+    HashMap<String, Object> params = new HashMap<String, Object>();
     params.put("avatarUrl", getAvatarUrl(user));
     return params;
   }

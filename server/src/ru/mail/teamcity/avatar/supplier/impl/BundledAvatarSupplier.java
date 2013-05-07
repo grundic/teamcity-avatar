@@ -8,7 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
 
 import java.io.File;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +28,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
   @Nullable
   public String getAvatarUrl(SUser user) {
-    File avatarsDir = new File(BUNDLED_AVATARS_PATH);
+
     return null;
   }
 
@@ -41,9 +43,17 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
   }
 
   @NotNull
-  public Map<String, String> getTemplateParams(@NotNull SUser user) {
-    getAvatarUrl(user);
-    return Collections.emptyMap();
+  public Map<String, Object> getTemplateParams(@NotNull SUser user) {
+    HashMap<String, Object> params = new HashMap<String, Object>();
+
+    List<String> bundledAvatars = new ArrayList<String>();
+    File avatarsDir = new File(BUNDLED_AVATARS_PATH);
+    for (File avatar : avatarsDir.listFiles()) {
+      bundledAvatars.add(avatar.getName());
+    }
+
+    params.put("bundledAvatars", bundledAvatars);
+    return params;
   }
 
   public void store(SUser user, Map<String, String[]> params) {

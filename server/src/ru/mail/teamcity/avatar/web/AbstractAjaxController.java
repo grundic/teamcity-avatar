@@ -39,7 +39,7 @@ public abstract class AbstractAjaxController extends BaseController {
     velocityEngine.init();
   }
 
-  protected String renderTemplate(@NotNull String path, Map<String, String> parameters) {
+  protected String renderTemplate(@NotNull String path, Map<String, Object> parameters) {
     VelocityContext context = new VelocityContext(parameters);
     Template template = velocityEngine.getTemplate(path);
     StringWriter writer = new StringWriter();

@@ -27,7 +27,7 @@ public class DisabledAvatarSupplier extends AbstractAvatarSupplier {
   }
 
   @NotNull
-  public Map<String, String> getTemplateParams(@NotNull SUser user) {
+  public Map<String, Object> getTemplateParams(@NotNull SUser user) {
     return Collections.emptyMap();
   }
 

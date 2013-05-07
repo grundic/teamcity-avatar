@@ -40,7 +40,7 @@ public interface AvatarSupplier {
    * Parameters for velocity template
    */
   @NotNull
-  public Map<String, String> getTemplateParams(@NotNull SUser user);
+  public Map<String, Object> getTemplateParams(@NotNull SUser user);
 
   /*
    * Store user data
