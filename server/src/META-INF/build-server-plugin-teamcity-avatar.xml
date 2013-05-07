@@ -2,19 +2,31 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd"
         default-autowire="constructor"
         >
 
+  <context:annotation-config/>
 
   <bean id="jsInjectionExtension" class="ru.mail.teamcity.avatar.extensions.pageExtension.JsInjectionExtension"/>
 
   <bean id="avatarServiceImpl" class="ru.mail.teamcity.avatar.service.AvatarServiceImpl"/>
 
+  <!--suppress SpringBeanConstructorArgInspection -->
   <bean id="avatarProfileConfiguration" class="ru.mail.teamcity.avatar.web.AvatarProfileConfiguration"/>
 
   <bean id="ajaxAvatarController" class="ru.mail.teamcity.avatar.web.AjaxAvatarController"/>
 
   <bean id="avatarSupplierAjaxController" class="ru.mail.teamcity.avatar.web.AvatarSupplierAjaxController"/>
+
+  <!-- Avatar supplier beans -->
+  <bean id="disabledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DisabledAvatarSupplier"/>
+  <bean id="directUrlAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier"/>
+  <bean id="bundledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.BundledAvatarSupplier"/>
+
 
 </beans>

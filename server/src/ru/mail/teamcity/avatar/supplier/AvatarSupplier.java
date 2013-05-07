@@ -13,6 +13,12 @@ import java.util.Map;
 public interface AvatarSupplier {
 
   /*
+   * Get configured name for Bean instance
+   */
+  @NotNull
+  public String getBeanName();
+
+  /*
     Return url of avatar.
    */
   @Nullable

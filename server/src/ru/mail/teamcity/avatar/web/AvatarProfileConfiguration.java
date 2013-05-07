@@ -11,12 +11,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import ru.mail.teamcity.avatar.AppConfiguration;
 import ru.mail.teamcity.avatar.service.AvatarService;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
-import ru.mail.teamcity.avatar.supplier.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -48,11 +45,14 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
       @Override
       protected ModelAndView doHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws Exception {
         SUser user = SessionUser.getUser(request);
-        AvatarSupplier avatarSupplier = WebHelper.getAvatarSupplier(request);
-        if (null == avatarSupplier) {
+        String avatarSupplierKey = WebHelper.getAvatarSupplierKey(request);
+        if (null == avatarSupplierKey) {
           // TODO: add error handling
           return null;
         }
+
+        AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(avatarSupplierKey);
+        assert avatarSupplier != null;
 
         myAvatarService.store(user, avatarSupplier, request.getParameterMap());
         return new ModelAndView(new RedirectView(String.format("profile.html?tab=%s", AppConfiguration.PLUGIN_NAME), true));
@@ -67,9 +67,7 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
     AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(user);
 
     model.put("avatarService", myAvatarService);
-    if (null != avatarSupplier) {
-      model.put("selectedAvatarSupplier", avatarSupplier.getClass().getName());
-    }
-    model.put("suppliers", new ArrayList<Supplier>(Arrays.asList(Supplier.values())));
+    model.put("selectedAvatarSupplier", null != avatarSupplier ? avatarSupplier.getBeanName() : "");
+    model.put("suppliers", myAvatarService.getSuppliers());
   }
 }

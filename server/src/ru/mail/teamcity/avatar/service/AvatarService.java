@@ -20,6 +20,18 @@ public interface AvatarService {
   public AvatarSupplier getAvatarSupplier(@NotNull SUser user);
 
   /*
+   * Return configured avatar supplier by key
+   */
+  @Nullable
+  public AvatarSupplier getAvatarSupplier(@NotNull String avatarSupplierKey);
+
+  /*
+   * Return registered avatar suppliers
+   */
+  @NotNull
+  public Map<String, AvatarSupplier> getSuppliers();
+
+  /*
    * Save avatar supplier, selected by user and supplier's settings
    */
   public void store(@NotNull SUser user, @NotNull String avatarSupplier, @NotNull Map<String, String[]> params);

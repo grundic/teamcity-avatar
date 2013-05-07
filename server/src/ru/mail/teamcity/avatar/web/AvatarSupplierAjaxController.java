@@ -9,6 +9,7 @@ import jetbrains.buildServer.web.util.SessionUser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
+import ru.mail.teamcity.avatar.service.AvatarService;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,15 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
 
   private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
 
+  private final AvatarService myAvatarService;
+
   public AvatarSupplierAjaxController(
           @NotNull WebControllerManager controllerManager,
           @NotNull PluginDescriptor pluginDescriptor,
-          @NotNull SBuildServer server) throws Exception {
+          @NotNull SBuildServer server,
+          @NotNull AvatarService avatarService) throws Exception {
     super(pluginDescriptor, server);
+    myAvatarService = avatarService;
     controllerManager.registerController("/avatarSupplierAjax.html", this);
   }
 
@@ -38,7 +43,12 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
       return null;
     }
 
-    AvatarSupplier avatarSupplier = WebHelper.getAvatarSupplier(request);
+    String avatarSupplierKey = WebHelper.getAvatarSupplierKey(request);
+    if (null == avatarSupplierKey) {
+      return null;
+    }
+
+    AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(avatarSupplierKey);
     if (null == avatarSupplier) {
       return null;
     }

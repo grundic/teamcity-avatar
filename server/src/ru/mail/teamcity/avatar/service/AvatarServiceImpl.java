@@ -23,7 +23,6 @@ import jetbrains.buildServer.users.SimplePropertyKey;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
-import ru.mail.teamcity.avatar.supplier.Supplier;
 
 import java.util.Map;
 
@@ -35,35 +34,46 @@ public class AvatarServiceImpl implements AvatarService {
 
   private final static Logger LOG = Logger.getInstance(AvatarServiceImpl.class.getName());
 
+  private final Map<String, AvatarSupplier> suppliers;
+
   private final String PROPERTY_KEY_NAME = "avatar.selected.supplier.type";
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
+  public AvatarServiceImpl(Map<String, AvatarSupplier> suppliers) {
+    this.suppliers = suppliers;
+  }
+
   @Nullable
   public AvatarSupplier getAvatarSupplier(@NotNull SUser user) {
-    String value = user.getPropertyValue(PROPERTY_KEY);
-    if (null == value) {
+    String avatarSupplierKey = user.getPropertyValue(PROPERTY_KEY);
+    if (null == avatarSupplierKey) {
       return null;
     }
 
-    Supplier supplier = Supplier.fromString(value);
-    if (null == supplier) {
-      LOG.error(String.format("Failed to locate supplier '%s' for user '%s'!", value, user.getName()));
-      return null;
-    }
+    return getAvatarSupplier(avatarSupplierKey);
+  }
 
-    return supplier.get();
+  @Nullable
+  public AvatarSupplier getAvatarSupplier(@NotNull String avatarSupplierKey) {
+    return suppliers.get(avatarSupplierKey);
+  }
+
+  @NotNull
+  public Map<String, AvatarSupplier> getSuppliers() {
+    return suppliers;
   }
 
   public void store(@NotNull SUser user, @NotNull String avatarSupplier, @NotNull Map<String, String[]> params) {
-    Supplier supplier = Supplier.fromString(avatarSupplier);
+    AvatarSupplier supplier = suppliers.get(avatarSupplier);
     if (null == supplier) {
+      LOG.error("Failed to store user settings - supplier is not found!");
       return;
     }
-    store(user, avatarSupplier, params);
+    store(user, supplier, params);
   }
 
   public void store(@NotNull SUser user, @NotNull AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
-    user.setUserProperty(PROPERTY_KEY, avatarSupplier.getClass().getName());
+    user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
     avatarSupplier.store(user, params);
   }
 

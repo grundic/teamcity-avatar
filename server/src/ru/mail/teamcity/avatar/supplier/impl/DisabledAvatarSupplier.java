@@ -2,7 +2,7 @@ package ru.mail.teamcity.avatar.supplier.impl;
 
 import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
-import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
 
 import java.util.Collections;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
  * User: Grigory Chernyshev
  * Date: 03.05.13 23:07
  */
-public class DisabledAvatarSupplier implements AvatarSupplier {
+public class DisabledAvatarSupplier extends AbstractAvatarSupplier {
   public String getAvatarUrl(SUser user) {
     return null;
   }

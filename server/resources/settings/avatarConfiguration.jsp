@@ -4,7 +4,8 @@
 <%@ taglib prefix="userProfile" tagdir="/WEB-INF/tags/userProfile" %>
 
 <jsp:useBean id="selectedAvatarSupplier" scope="request" type="java.lang.String"/>
-<jsp:useBean id="suppliers" scope="request" type="java.util.List<ru.mail.teamcity.avatar.supplier.Supplier>"/>
+<jsp:useBean id="suppliers" scope="request"
+             type="java.util.Map<java.lang.String, ru.mail.teamcity.avatar.supplier.AvatarSupplier>"/>
 <jsp:useBean id="currentUser" scope="request" type="jetbrains.buildServer.users.SUser"/>
 
 <script type="text/javascript">
@@ -40,9 +41,10 @@
       <div>
         <select id="avatarSupplierType" name="avatarSupplierType">
           <c:forEach var="supplier" items="${suppliers}">
-            <option value="${supplier.toString()}"
-                    <c:if test="${selectedAvatarSupplier == supplier.toString()}">selected</c:if>>
-                ${supplier.get().optionName}
+            <option value="${supplier.key}"
+                    <c:if test="${selectedAvatarSupplier == supplier.key}">selected</c:if>
+                    >
+                ${supplier.value.optionName}
             </option>
           </c:forEach>
         </select>

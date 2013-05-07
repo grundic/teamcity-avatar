@@ -4,7 +4,7 @@ import jetbrains.buildServer.users.PropertyKey;
 import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.users.SimplePropertyKey;
 import org.jetbrains.annotations.NotNull;
-import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * User: Grigory Chernyshev
  * Date: 02.05.13 19:40
  */
-public class DirectUrlAvatarSupplier implements AvatarSupplier {
+public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
 
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);

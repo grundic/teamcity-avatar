@@ -2,8 +2,6 @@ package ru.mail.teamcity.avatar.web;
 
 import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.Nullable;
-import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
-import ru.mail.teamcity.avatar.supplier.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,24 +16,13 @@ public class WebHelper {
   public final static String SUPPLIER_PARAMETER = "avatarSupplierType";
 
   @Nullable
-  public static AvatarSupplier getAvatarSupplier(HttpServletRequest request) {
-    String supplierName = request.getParameter(SUPPLIER_PARAMETER);
-    if (null == supplierName) {
-      LOG.warn("Supplier parameter is empty!");
+  public static String getAvatarSupplierKey(HttpServletRequest request) {
+    String avatarSupplierKey = request.getParameter(SUPPLIER_PARAMETER);
+    if (null == avatarSupplierKey) {
+      LOG.warn("Can't extract avatar supplier key from request!");
       return null;
     }
 
-    Supplier supplier = Supplier.fromString(supplierName);
-    if (null == supplier) {
-      LOG.warn(String.format("Failed to get supplier by name '%s'", supplierName));
-      return null;
-    }
-
-    AvatarSupplier avatarSupplier = supplier.get();
-    if (null == avatarSupplier) {
-      LOG.error(String.format("Failed to get instance of supplier %s!", supplier));
-      return null;
-    }
-    return avatarSupplier;
+    return avatarSupplierKey;
   }
 }
