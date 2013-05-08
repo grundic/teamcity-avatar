@@ -15,6 +15,7 @@
           </element>
         </element>
         <element id="library" level="project" name="velocity-1.7" />
+        <element id="library" level="project" name="jgravatar-1.0" />
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-server-plugin.xml" output-file-name="teamcity-plugin.xml" />
     </root>
