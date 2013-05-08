@@ -1,5 +1,6 @@
 package ru.mail.teamcity.avatar.web;
 
+import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.controllers.BaseController;
 import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.web.openapi.*;
@@ -21,6 +22,8 @@ import java.util.Map;
  * Date: 29.04.13 21:39
  */
 public class AvatarProfileConfiguration extends SimpleCustomTab {
+
+  private final static Logger LOG = Logger.getInstance(AvatarProfileConfiguration.class.getName());
 
   private final AvatarService myAvatarService;
 
@@ -47,7 +50,7 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
         SUser user = SessionUser.getUser(request);
         String avatarSupplierKey = WebHelper.getAvatarSupplierKey(request);
         if (null == avatarSupplierKey) {
-          // TODO: add error handling
+          LOG.error("Failed to get avatar supplier key!");
           return null;
         }
 
