@@ -59,8 +59,14 @@ public class AjaxAvatarController extends BaseController {
             return;
           }
 
+          String avatarUrl = avatarService.getAvatarUrl(user);
+          if (null != avatarUrl && avatarUrl.startsWith("/")) {
+            // Support relative avatar urls
+            avatarUrl = request.getContextPath() + avatarUrl;
+          }
+
           final Element configElement = new Element("avatarUrl");
-          configElement.setContent(new Text(avatarService.getAvatarUrl(user)));
+          configElement.setContent(new Text(avatarUrl));
           xmlResponse.addContent(configElement);
         } catch (Exception e) {
           Loggers.SERVER.warn(e.getMessage());
