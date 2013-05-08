@@ -3,6 +3,7 @@ package ru.mail.teamcity.avatar.web;
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.serverSide.SBuildServer;
 import jetbrains.buildServer.users.SUser;
+import jetbrains.buildServer.users.UserModel;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
 import jetbrains.buildServer.web.util.SessionUser;
@@ -24,14 +25,17 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
   private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
 
   private final AvatarService myAvatarService;
+  private final UserModel userModel;
 
   public AvatarSupplierAjaxController(
           @NotNull WebControllerManager controllerManager,
           @NotNull PluginDescriptor pluginDescriptor,
           @NotNull SBuildServer server,
-          @NotNull AvatarService avatarService) throws Exception {
+          @NotNull AvatarService avatarService,
+          @NotNull UserModel userModel) throws Exception {
     super(pluginDescriptor, server);
     myAvatarService = avatarService;
+    this.userModel = userModel;
     controllerManager.registerController("/avatarSupplierAjax.html", this);
   }
 
@@ -40,16 +44,19 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
   protected ModelAndView doHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws Exception {
     SUser user = getUser(request);
     if (user == null) {
+      LOG.warn("Failed to get user to return avatar for");
       return null;
     }
 
     String avatarSupplierKey = WebHelper.getAvatarSupplierKey(request);
     if (null == avatarSupplierKey) {
+      LOG.warn("Failed to get avatar supplier key!");
       return null;
     }
 
     AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(avatarSupplierKey);
     if (null == avatarSupplier) {
+      LOG.warn("Failed to get avatar supplier!");
       return null;
     }
 
@@ -62,9 +69,6 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
     if (null == username) {
       return SessionUser.getUser(request);
     }
-
-    //TODO: get user by username
-    return null;
+    return userModel.findUserAccount(null, username);
   }
-
 }
