@@ -23,18 +23,19 @@ import java.util.Map;
 public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
   private final String BUNDLED_AVATARS_PATH;
+  private final String PLUGIN_RESOURCE_PATH;
 
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
   public BundledAvatarSupplier(SBuildServer server, PluginDescriptor pluginDescriptor) {
-    BUNDLED_AVATARS_PATH = server.getServerRootPath() + pluginDescriptor.getPluginResourcesPath() + "image/avatars";
+    PLUGIN_RESOURCE_PATH = pluginDescriptor.getPluginResourcesPath("/image/avatars");
+    BUNDLED_AVATARS_PATH = server.getServerRootPath() + PLUGIN_RESOURCE_PATH;
   }
 
   @Nullable
   public String getAvatarUrl(SUser user) {
-    //  TODO - remove hardcoded plugin URL. And check how it works in admin area.
-    return "plugins/teamcity-avatar/image/avatars/" + user.getPropertyValue(PROPERTY_KEY);
+    return PLUGIN_RESOURCE_PATH + "/" + user.getPropertyValue(PROPERTY_KEY);
   }
 
   @NotNull
@@ -67,6 +68,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
     params.put("bundledAvatars", bundledAvatars);
     params.put("selectedAvatar", user.getPropertyValue(PROPERTY_KEY));
+    params.put("pluginResourcePath", PLUGIN_RESOURCE_PATH);
     return params;
   }
 

@@ -8,8 +8,7 @@
     });
 
     function showSelectedAvatar(avatar) {
-    ## TODO - remove hardcoded plugin URL
-        src = "plugins/teamcity-avatar/image/avatars/" + avatar;
+        src = window['base_uri'] + "$pluginResourcePath/" + avatar;
         $j('#bundledAvatarImg').attr("src", src)
     }
 </script>
