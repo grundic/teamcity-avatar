@@ -1,5 +1,7 @@
 var Avatar = {
 
+  USERNAME_REGEX: /TeamCity user: (.*)(?="\);)/,
+
   /*
    * Return hash code for string.
    */
@@ -36,7 +38,7 @@ var Avatar = {
    */
   addAvatarToUserPanel: function () {
     this._getAvatarUrl(null, function (param_hash) {
-      $j("#beforeUserId").after('<img src="' + param_hash['avatarUrl'] + '" alt="Goofy" height="18" width="18">');
+      $j("#beforeUserId").after('<img src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
     });
   },
 
@@ -72,10 +74,29 @@ var Avatar = {
 
       if ($j("#" + element_id).length == 0) {
         $this._getAvatarUrl(username, function (param_hash) {
-          $j(param_hash['this']).before('<img id="' + element_id + '" src="' + param_hash['avatarUrl'] + '" alt="" height="18" width="18">');
+          $j(param_hash['this']).before('<img id="' + element_id + '" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
         }, {"this": this});
       }
     });
+  },
+
+  addAvatarToPendingChangesDivTab: function () {
+    var $this = this;
+
+    $j($j('#changesTable tbody td.userName span').each(function () {
+      var $span = this;
+      var _onmouseover = $j(this).attr('onmouseover');
+      var match = Avatar.USERNAME_REGEX.exec(_onmouseover);
+      if (match) {
+        var username = match[1];
+        $this._getAvatarUrl(username, function (param_hash) {
+          $j($span).before('<img src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+        });
+      } else {
+        console.log("[ERROR] Failed to match username: " + _onmouseover);
+      }
+    })
+    );
   }
 };
 
@@ -83,4 +104,5 @@ var Avatar = {
 $j(document).ready(function () {
   Avatar.addAvatarToUserPanel();
   Avatar.showPopupNearElementHack();
+  Avatar.addAvatarToPendingChangesDivTab();
 });
