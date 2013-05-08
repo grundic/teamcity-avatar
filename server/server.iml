@@ -45,6 +45,7 @@
     <orderEntry type="library" name="spring" level="project" />
     <orderEntry type="library" name="TeamCity server runtime" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="velocity-1.7" level="project" />
+    <orderEntry type="library" name="jgravatar-1.0" level="project" />
   </component>
 </module>
 

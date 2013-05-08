@@ -27,6 +27,7 @@
   <bean id="disabledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DisabledAvatarSupplier"/>
   <bean id="directUrlAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier"/>
   <bean id="bundledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.BundledAvatarSupplier"/>
+  <bean id="gravatarAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.GravatarAvatarSupplier"/>
 
 
 </beans>

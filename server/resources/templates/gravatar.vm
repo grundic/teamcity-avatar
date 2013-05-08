@@ -1,0 +1,9 @@
+<p>A Gravatar is a <strong>G</strong>lobally <strong>R</strong>ecognized <strong>Avatar</strong>. You upload it and
+    create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will
+    automatically follow you there.</p>
+
+<p>Official site: <a href="http://gravatar.com">http://gravatar.com</a></p>
+
+#if($avatarUrl)
+<img src="$avatarUrl" alt="" style="">
+#end
