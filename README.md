@@ -1,41 +1,26 @@
-This is a IDEA project template to create a server-side only plugin for TeamCity
-For background information checkout any open-sourced plugins or see http://confluence.jetbrains.net/display/TCD65/Developing+TeamCity+Plugins
+Teamcity avatar
+===============
 
-In this sample you will find
-=============================
-- TeamCity server-side only plugin
-- Plugin version will be patched if building with IDEA build runner in TeamCity
-- Run configuration to run/debug plugin under TeamCity (use `http://localhost:8111/bs`)
-- pre-configured IDEA settings to support references to TeamCity
-- Uses `$TeamCityDistribution$` IDEA path variable as path to TeamCity home (unpacked .tar.gz or .exe distribution)
-- Bunch of libraries for most recent needed TeamCity APIs
-- Module with TestNG tests that uses TeamCity Tests API
+Teamcity avatar is plugin for JetBrain's continues integration server, which adds avatar functionality.
 
+Features
+--------
+This plugin add additional tab in user's profile.
+Available options:
+- Direct url: get avatar from http source
+- Bundled avatars: user can select avatar from pre-packaged images
+- Gravatar service: get avatar from gravatar by user's email
 
-What's next? 
-=============
- - Fork this repository
- - Change project name in IDEA
- - Update `teamcity-server-plugin.xml` to put plugin name, plugin display name and description
- - Rename `server/src/META-INF/build-server-plugin-PLUGIN_NAME.xml` to put your plugin name here and update `server/server.iml`
- - Update plugin .jar file name in `plugin` artifact
- - Update plugin .zip file name in `plugin-zip` artifact
- - Have fun!
+After selecting avatar, it's image will appear near to user name in top left corner.
+Also, avatar will be displayed in pending changes for each user with configured avatar.
 
+Important note: user must have *View user profile* permission in order to view avatars of other people. You can add
+this permission in Administration area in Roles tab.
 
-Steps to fork template to a given repository
-===========================================
- - call git init or create new repo and local copy
- - git remote add template `git://github.com/jonnyzzz/TeamCity.PluginTemplate.git`
- - git fetch template
- - git merge template/serverOnly
- - git remote rm template
+Installation
+------------
+Guide from Teamcity's documentation:
+# Shutdown TeamCity server
+# Copy the zip archive with the plugin into <TeamCity Data Directory>/plugins directory (usually ~/.BuildServer/plugins)
+# Start TeamCity server: the plugin files will be unpacked and processed automatically.
 
-Those steps makes you repo contain default template indise. 
-It's most easiest way to start.
-
-
-License
-=======
-You may do what ever you like with those sources. 
-or I could also say the license is MIT.
