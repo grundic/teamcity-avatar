@@ -22,7 +22,9 @@ import java.util.Map;
  */
 public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
+  @NotNull
   private final String BUNDLED_AVATARS_PATH;
+  @NotNull
   private final String PLUGIN_RESOURCE_PATH;
 
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
@@ -34,7 +36,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
   }
 
   @Nullable
-  public String getAvatarUrl(SUser user) {
+  public String getAvatarUrl(@NotNull SUser user) {
     return PLUGIN_RESOURCE_PATH + "/" + user.getPropertyValue(PROPERTY_KEY);
   }
 
@@ -72,7 +74,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
     return params;
   }
 
-  public void store(SUser user, Map<String, String[]> params) {
+  public void store(@NotNull SUser user, @NotNull Map<String, String[]> params) {
     String[] values = params.get("bundledAvatar");
     if (null != values) {
       assert values.length > 0;

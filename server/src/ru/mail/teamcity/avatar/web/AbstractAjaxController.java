@@ -20,7 +20,9 @@ import java.util.Map;
  */
 public abstract class AbstractAjaxController extends BaseController {
 
+  @NotNull
   protected final PluginDescriptor pluginDescriptor;
+  @NotNull
   protected final SBuildServer server;
   protected VelocityEngine velocityEngine;
 

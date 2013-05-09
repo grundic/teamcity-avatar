@@ -17,6 +17,7 @@ import java.util.Map;
  */
 public class GravatarAvatarSupplier extends AbstractAvatarSupplier {
 
+  @NotNull
   private final Gravatar gravatar;
 
   public GravatarAvatarSupplier() {
@@ -26,7 +27,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier {
   }
 
   @Nullable
-  public String getAvatarUrl(SUser user) {
+  public String getAvatarUrl(@NotNull SUser user) {
     String mail = user.getEmail();
     if (null != mail) {
       return gravatar.getUrl(mail);

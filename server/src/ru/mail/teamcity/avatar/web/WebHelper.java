@@ -1,6 +1,7 @@
 package ru.mail.teamcity.avatar.web;
 
 import com.intellij.openapi.diagnostic.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class WebHelper {
   public final static String SUPPLIER_PARAMETER = "avatarSupplierType";
 
   @Nullable
-  public static String getAvatarSupplierKey(HttpServletRequest request) {
+  public static String getAvatarSupplierKey(@NotNull HttpServletRequest request) {
     String avatarSupplierKey = request.getParameter(SUPPLIER_PARAMETER);
     if (null == avatarSupplierKey) {
       LOG.warn("Can't extract avatar supplier key from request!");

@@ -25,6 +25,7 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
 
   private final static Logger LOG = Logger.getInstance(AvatarProfileConfiguration.class.getName());
 
+  @NotNull
   private final AvatarService myAvatarService;
 
   public AvatarProfileConfiguration(@NotNull PagePlaces pagePlaces,

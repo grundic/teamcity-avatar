@@ -26,7 +26,9 @@ import java.util.regex.Pattern;
  */
 public class AjaxAvatarController extends BaseController {
 
+  @NotNull
   private final AvatarService avatarService;
+  @NotNull
   private final UserModel userModel;
 
   private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\((\\w+)\\)$");
@@ -80,7 +82,8 @@ public class AjaxAvatarController extends BaseController {
     return null;
   }
 
-  private SUser getUser(String username) {
+  @Nullable
+  private SUser getUser(@NotNull String username) {
     SUser user = userModel.findUserAccount(null, username);
     if (null == user) {
       Matcher matcher = USER_EXTENDED_NAME.matcher(username);

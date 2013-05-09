@@ -18,7 +18,7 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
-  public String getAvatarUrl(SUser user) {
+  public String getAvatarUrl(@NotNull SUser user) {
     return user.getPropertyValue(PROPERTY_KEY);
   }
 
@@ -39,7 +39,7 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
     return params;
   }
 
-  public void store(SUser user, Map<String, String[]> params) {
+  public void store(@NotNull SUser user, @NotNull Map<String, String[]> params) {
     String[] values = params.get("avatarUrl");
     if (null != values) {
       assert values.length > 0;

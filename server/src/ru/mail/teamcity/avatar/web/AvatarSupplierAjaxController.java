@@ -24,7 +24,9 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
 
   private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
 
+  @NotNull
   private final AvatarService myAvatarService;
+  @NotNull
   private final UserModel userModel;
 
   public AvatarSupplierAjaxController(
@@ -64,7 +66,8 @@ public class AvatarSupplierAjaxController extends AbstractAjaxController {
     return null;
   }
 
-  private SUser getUser(HttpServletRequest request) {
+  @Nullable
+  private SUser getUser(@NotNull HttpServletRequest request) {
     String username = request.getParameter("username");
     if (null == username) {
       return SessionUser.getUser(request);
