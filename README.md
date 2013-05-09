@@ -24,3 +24,8 @@ Guide from Teamcity's documentation:
 * Copy the zip archive with the plugin into <TeamCity Data Directory>/plugins directory (usually ~/.BuildServer/plugins)
 * Start TeamCity server: the plugin files will be unpacked and processed automatically.
 
+Screenshots
+-----------
+![Screenshot1](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-1.png?raw=true)
+![Screenshot2](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-2.png?raw=true)
+![Screenshot3](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-3.png?raw=true)
