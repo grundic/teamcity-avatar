@@ -4,8 +4,8 @@
   <info>
     <name>teamcity-avatar</name>
     <display-name>Avatar</display-name>
-    <description>Plugin for displaying users avatars in Teamcity</description>
     <version>0.1</version>
+    <description>Plugin for displaying user avatars in Teamcity</description>
     <vendor>
       <name>Grigory Chernyshev [mail.ru]</name>
       <url>http://mail.ru</url>
