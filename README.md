@@ -20,7 +20,7 @@ this permission in Administration area in Roles tab.
 Installation
 ------------
 Guide from Teamcity's documentation:
-# Shutdown TeamCity server
-# Copy the zip archive with the plugin into <TeamCity Data Directory>/plugins directory (usually ~/.BuildServer/plugins)
-# Start TeamCity server: the plugin files will be unpacked and processed automatically.
+* Shutdown TeamCity server
+* Copy the zip archive with the plugin into <TeamCity Data Directory>/plugins directory (usually ~/.BuildServer/plugins)
+* Start TeamCity server: the plugin files will be unpacked and processed automatically.
 
