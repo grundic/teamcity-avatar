@@ -3,7 +3,8 @@
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
   <info>
     <name>teamcity-avatar</name>
-    <display-name>Plugin for displaying users avatars in Teamcity</display-name>
+    <display-name>Avatar</display-name>
+    <description>Plugin for displaying users avatars in Teamcity</description>
     <version>0.1</version>
     <vendor>
       <name>Grigory Chernyshev [mail.ru]</name>
