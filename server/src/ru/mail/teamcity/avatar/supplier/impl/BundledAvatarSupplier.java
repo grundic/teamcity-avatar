@@ -28,7 +28,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
-  public BundledAvatarSupplier(SBuildServer server, PluginDescriptor pluginDescriptor) {
+  public BundledAvatarSupplier(@NotNull SBuildServer server, @NotNull PluginDescriptor pluginDescriptor) {
     PLUGIN_RESOURCE_PATH = pluginDescriptor.getPluginResourcesPath("/image/avatars");
     BUNDLED_AVATARS_PATH = server.getServerRootPath() + PLUGIN_RESOURCE_PATH;
   }
