@@ -38,7 +38,7 @@ var Avatar = {
    */
   addAvatarToUserPanel: function () {
     this._getAvatarUrl(null, function (param_hash) {
-      $j("#beforeUserId").after('<img src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+      $j("#beforeUserId").after('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
     });
   },
 
@@ -74,7 +74,7 @@ var Avatar = {
 
       if ($j("#" + element_id).length == 0) {
         $this._getAvatarUrl(username, function (param_hash) {
-          $j(param_hash['this']).before('<img id="' + element_id + '" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+          $j(param_hash['this']).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
         }, {"this": this});
       }
     });
@@ -90,7 +90,7 @@ var Avatar = {
       if (match) {
         var username = match[1];
         $this._getAvatarUrl(username, function (param_hash) {
-          $j($span).before('<img src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+          $j($span).before('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
         });
       } else {
         console.log("[ERROR] Failed to match username: " + _onmouseover);

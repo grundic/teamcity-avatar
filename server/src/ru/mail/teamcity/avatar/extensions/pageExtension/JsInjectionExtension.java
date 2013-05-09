@@ -19,6 +19,7 @@ public class JsInjectionExtension extends SimplePageExtension {
           @NotNull PagePlaces pagePlaces,
           @NotNull PluginDescriptor descriptor) {
     super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("jsp/empty.jsp"));
+    addCssFile(descriptor.getPluginResourcesPath("css/avatar.css"));
 
     int version = (int) server.getServerMajorVersion();
     if (AppConfiguration.SUPPORTED_VERSIONS.contains(version)) {

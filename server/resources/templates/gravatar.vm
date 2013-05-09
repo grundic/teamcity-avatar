@@ -5,5 +5,5 @@
 <p>Official site: <a href="http://gravatar.com">http://gravatar.com</a></p>
 
 #if($avatarUrl)
-<img src="$avatarUrl" alt="" style="">
+<img src="$avatarUrl" alt="">
 #end

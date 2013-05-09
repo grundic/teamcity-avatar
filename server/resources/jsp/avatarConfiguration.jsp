@@ -31,8 +31,6 @@
 </script>
 
 <l:settingsBlock title="Avatar configuration">
-
-
   <div class="clearfix">
 
     <form id="avatarConfigurationForm" action="profileAvatarConfig.html" method="POST">
@@ -50,10 +48,7 @@
         </select>
       </div>
 
-
-      <div id="supplierTemplate"
-           style="margin-top: 20px; margin-bottom: 15px; margin-left: 10px; border: 2px; border-style:dotted; padding: 10px;">
-      </div>
+      <div id="supplierTemplate"></div>
 
       <input type="submit" value="Save" class="btn"/>
     </form>

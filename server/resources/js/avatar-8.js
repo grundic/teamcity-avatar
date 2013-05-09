@@ -3,7 +3,7 @@
  */
 Avatar.addAvatarToUserPanel = function () {
   this._getAvatarUrl(null, function (param_hash) {
-    $j("#sp_span_usernamePopup").before('<img src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+    $j("#sp_span_usernamePopup").before('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
   });
 };
 
