@@ -21,10 +21,10 @@ import java.util.Map;
 public abstract class AbstractAjaxController extends BaseController {
 
   @NotNull
-  protected final PluginDescriptor pluginDescriptor;
+  private final PluginDescriptor pluginDescriptor;
   @NotNull
-  protected final SBuildServer server;
-  protected VelocityEngine velocityEngine;
+  private final SBuildServer server;
+  private VelocityEngine velocityEngine;
 
   protected AbstractAjaxController(@NotNull PluginDescriptor pluginDescriptor, @NotNull SBuildServer server) throws Exception {
     this.pluginDescriptor = pluginDescriptor;
@@ -41,7 +41,7 @@ public abstract class AbstractAjaxController extends BaseController {
     velocityEngine.init();
   }
 
-  protected String renderTemplate(@NotNull String path, Map<String, Object> parameters) {
+  String renderTemplate(@NotNull String path, Map<String, Object> parameters) {
     VelocityContext context = new VelocityContext(parameters);
     Template template = velocityEngine.getTemplate(path);
     StringWriter writer = new StringWriter();
@@ -50,7 +50,7 @@ public abstract class AbstractAjaxController extends BaseController {
     return writer.toString();
   }
 
-  protected void write(@NotNull HttpServletResponse response, @NotNull String message) throws IOException {
+  void write(@NotNull HttpServletResponse response, @NotNull String message) throws IOException {
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html");
     response.getWriter().write(message);
