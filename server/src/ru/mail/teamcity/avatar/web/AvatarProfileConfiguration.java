@@ -36,7 +36,7 @@ public class AvatarProfileConfiguration extends SimpleCustomTab {
             pagePlaces,
             PlaceId.MY_TOOLS_TABS,
             AppConfiguration.PLUGIN_NAME,
-            descriptor.getPluginResourcesPath("settings/avatarConfiguration.jsp"),
+            descriptor.getPluginResourcesPath("jsp/avatarConfiguration.jsp"),
             "Avatar"
     );
     this.myAvatarService = avatarService;

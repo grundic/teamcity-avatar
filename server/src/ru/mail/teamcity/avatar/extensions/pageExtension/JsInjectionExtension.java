@@ -18,7 +18,7 @@ public class JsInjectionExtension extends SimplePageExtension {
           @NotNull SBuildServer server,
           @NotNull PagePlaces pagePlaces,
           @NotNull PluginDescriptor descriptor) {
-    super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("extension.jsp"));
+    super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("jsp/empty.jsp"));
 
     int version = (int) server.getServerMajorVersion();
     if (AppConfiguration.SUPPORTED_VERSIONS.contains(version)) {
