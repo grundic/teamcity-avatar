@@ -20,7 +20,7 @@
   });
 
   function loadSupplierTemplate(supplier) {
-    url = window['base_uri'] + "/avatarSupplierAjax.html?avatarSupplierType=" + supplier;
+    var url = window['base_uri'] + "/avatarSupplierAjax.html?avatarSupplierType=" + supplier;
     BS.ajaxRequest(encodeURI(url), {
               onSuccess: function (transport) {
                 $j('#supplierTemplate').html(transport.responseText);

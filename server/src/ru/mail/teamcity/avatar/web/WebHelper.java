@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * User: Grigory Chernyshev
  * Date: 05.05.13 18:32
  */
-public class WebHelper {
+class WebHelper {
 
   private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
 

@@ -32,7 +32,7 @@ public abstract class AbstractAjaxController extends BaseController {
     initVelocity();
   }
 
-  private void initVelocity() throws Exception {
+  private void initVelocity() {
     velocityEngine = new VelocityEngine();
     velocityEngine.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, server.getServerRootPath() + pluginDescriptor.getPluginResourcesPath());
 

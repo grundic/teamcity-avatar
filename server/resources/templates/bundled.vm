@@ -8,7 +8,7 @@
     });
 
     function showSelectedAvatar(avatar) {
-        src = window['base_uri'] + "$pluginResourcePath/" + avatar;
+        var src = window['base_uri'] + "$pluginResourcePath/" + avatar;
         $j('#bundledAvatarImg').attr("src", src)
     }
 </script>
