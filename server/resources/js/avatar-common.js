@@ -2,6 +2,9 @@ var Avatar = {
 
   USERNAME_REGEX: /TeamCity user: (.*)(?="\);)/,
 
+  currentUser: {},
+  _cache: {},
+
   /*
    * Return hash code for string.
    */
@@ -21,23 +24,27 @@ var Avatar = {
       url += "?username=" + username;
     }
 
-    BS.ajaxRequest(encodeURI(url), {
-              onSuccess: function (transport) {
-                var avatarUrl = $j(transport.responseText).find("avatarUrl").text();
-                if (avatarUrl) {
-                  callback($j.extend({"avatarUrl": avatarUrl}, param_hash));
+    if (username in Avatar._cache) {
+      callback($j.extend({"avatarUrl": Avatar._cache[username]}, param_hash));
+    } else {
+      BS.ajaxRequest(encodeURI(url), {
+                onSuccess: function (transport) {
+                  var avatarUrl = $j(transport.responseText).find("avatarUrl").text();
+                  if (avatarUrl) {
+                    Avatar._cache[username] = avatarUrl;
+                    callback($j.extend({"avatarUrl": avatarUrl}, param_hash));
+                  }
                 }
               }
-            }
-    );
-
+      );
+    }
   },
 
   /*
    * Add avatar for current user to user panel.
    */
   addAvatarToUserPanel: function () {
-    this._getAvatarUrl(null, function (param_hash) {
+    this._getAvatarUrl(Avatar.currentUser.extendedName, function (param_hash) {
       $j("#beforeUserId").after('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
     });
   },
