@@ -4,7 +4,9 @@
       <root url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$USER_HOME$/temp/web.src" />
+    </SOURCES>
     <jarDirectory url="file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib" recursive="false" />
   </library>
 </component>
