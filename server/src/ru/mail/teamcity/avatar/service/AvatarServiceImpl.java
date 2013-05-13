@@ -75,14 +75,21 @@ public class AvatarServiceImpl implements AvatarService {
   public void store(@NotNull SUser user, @NotNull AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
     user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
     avatarSupplier.store(user, params);
+    AvatarCache.setCache(user.getUsername(), avatarSupplier.getAvatarUrl(user));
   }
 
   @Nullable
   public String getAvatarUrl(@NotNull SUser user) {
-    AvatarSupplier avatarSupplier = getAvatarSupplier(user);
-    if (null == avatarSupplier) {
-      return null;
+    String avatarUrl = AvatarCache.getCache(user.getUsername());
+    if (null == avatarUrl) {
+      AvatarSupplier avatarSupplier = getAvatarSupplier(user);
+      if (null == avatarSupplier) {
+        return null;
+      }
+      avatarUrl = avatarSupplier.getAvatarUrl(user);
+      AvatarCache.setCache(user.getUsername(), avatarUrl);
     }
-    return avatarSupplier.getAvatarUrl(user);
+
+    return avatarUrl;
   }
 }
