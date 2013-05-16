@@ -7,6 +7,7 @@ import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.IndividualAvatarSupplier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Map;
  * User: Grigory Chernyshev
  * Date: 08.05.13 11:06
  */
-public class GravatarAvatarSupplier extends AbstractAvatarSupplier {
+public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements IndividualAvatarSupplier {
 
   @NotNull
   private final Gravatar gravatar;
