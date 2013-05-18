@@ -63,15 +63,6 @@ public class AvatarServiceImpl implements AvatarService {
     return suppliers;
   }
 
-  public void store(@NotNull SUser user, @NotNull String avatarSupplier, @NotNull Map<String, String[]> params) {
-    AvatarSupplier supplier = suppliers.get(avatarSupplier);
-    if (null == supplier) {
-      LOG.error("Failed to store user settings - supplier is not found!");
-      return;
-    }
-    store(user, supplier, params);
-  }
-
   public void store(@NotNull SUser user, @NotNull AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
     user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
     avatarSupplier.store(user, params);
