@@ -69,18 +69,17 @@ public class AvatarServiceImpl implements AvatarService {
     AvatarCache.setCache(user.getUsername(), avatarSupplier.getAvatarUrl(user));
   }
 
-  @Nullable
+  @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     String avatarUrl = AvatarCache.getCache(user.getUsername());
-    if (null == avatarUrl) {
+    if (avatarUrl.isEmpty()) {
       AvatarSupplier avatarSupplier = getAvatarSupplier(user);
       if (null == avatarSupplier) {
-        return null;
+        return "";
       }
       avatarUrl = avatarSupplier.getAvatarUrl(user);
       AvatarCache.setCache(user.getUsername(), avatarUrl);
     }
-
     return avatarUrl;
   }
 }

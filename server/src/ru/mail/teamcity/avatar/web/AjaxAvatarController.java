@@ -62,7 +62,7 @@ public class AjaxAvatarController extends BaseController {
           }
 
           String avatarUrl = avatarService.getAvatarUrl(user);
-          if (null != avatarUrl && avatarUrl.startsWith("/")) {
+          if (avatarUrl.startsWith("/")) {
             // Support relative avatar urls
             avatarUrl = request.getContextPath() + avatarUrl;
           }

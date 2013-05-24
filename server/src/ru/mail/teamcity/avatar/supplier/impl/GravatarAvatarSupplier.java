@@ -5,7 +5,6 @@ import com.timgroup.jgravatar.GravatarDefaultImage;
 import com.timgroup.jgravatar.GravatarRating;
 import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
 import ru.mail.teamcity.avatar.supplier.IndividualAvatarSupplier;
 
@@ -27,7 +26,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
     gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
   }
 
-  @Nullable
+  @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     String mail = user.getEmail();
     if (null != mail) {
@@ -36,7 +35,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
         return url;
       }
     }
-    return null;
+    return "";
   }
 
   @NotNull

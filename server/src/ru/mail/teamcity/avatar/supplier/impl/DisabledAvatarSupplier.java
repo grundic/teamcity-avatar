@@ -12,8 +12,9 @@ import java.util.Map;
  * Date: 03.05.13 23:07
  */
 public class DisabledAvatarSupplier extends AbstractAvatarSupplier {
+  @NotNull
   public String getAvatarUrl(SUser user) {
-    return null;
+    return "";
   }
 
   @NotNull

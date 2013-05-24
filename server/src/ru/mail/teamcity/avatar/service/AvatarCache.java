@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 public class AvatarCache {
   private static ConcurrentMap<String, String> cache = new ConcurrentHashMap<String, String>();
 
-  @Nullable
+  @NotNull
   public static String getCache(@NotNull String username) {
     return cache.get(username);
   }

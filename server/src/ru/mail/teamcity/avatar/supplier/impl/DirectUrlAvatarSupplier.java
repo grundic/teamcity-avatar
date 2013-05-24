@@ -18,6 +18,7 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
   private final String PROPERTY_KEY_NAME = "avatar." + this.getClass().getSimpleName();
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
+  @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     return user.getPropertyValue(PROPERTY_KEY);
   }

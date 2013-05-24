@@ -2,7 +2,6 @@ package ru.mail.teamcity.avatar.supplier;
 
 import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public interface AvatarSupplier {
   /*
     Return url of avatar.
    */
-  @Nullable
+  @NotNull
   public String getAvatarUrl(SUser user);
 
   /*

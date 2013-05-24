@@ -7,7 +7,6 @@ import jetbrains.buildServer.users.SimplePropertyKey;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
 
 import java.io.File;
@@ -35,7 +34,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
     BUNDLED_AVATARS_PATH = server.getServerRootPath() + PLUGIN_RESOURCE_PATH;
   }
 
-  @Nullable
+  @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     return PLUGIN_RESOURCE_PATH + "/" + user.getPropertyValue(PROPERTY_KEY);
   }
