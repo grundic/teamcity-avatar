@@ -23,6 +23,8 @@
 
   <bean id="avatarSupplierAjaxController" class="ru.mail.teamcity.avatar.web.AvatarSupplierAjaxController"/>
 
+  <bean id="avatarAdminController" class="ru.mail.teamcity.avatar.web.AvatarAdminController"/>
+
   <!-- Avatar supplier beans -->
   <bean id="disabledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DisabledAvatarSupplier"/>
   <bean id="directUrlAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier"/>

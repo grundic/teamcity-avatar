@@ -1,0 +1,17 @@
+.success, .validation {
+  border: 1px solid;
+  margin: 10px 0;
+  padding: 15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+
+.validation {
+  color: #D63301;
+  background-color: #FFCCBA;
+}

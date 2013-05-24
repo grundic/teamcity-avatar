@@ -1,7 +1,10 @@
 package ru.mail.teamcity.avatar.config;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,14 +15,20 @@ import java.util.List;
 @SuppressWarnings("UnusedDeclaration")
 @XmlRootElement
 public class Suppliers {
-  private List<Supplier> supplierList;
+  @NotNull
+  private List<Supplier> supplierList = new ArrayList<Supplier>();
 
+  @NotNull
   @XmlElement(name = "supplier")
   public List<Supplier> getSupplierList() {
     return supplierList;
   }
 
-  public void setSupplierList(List<Supplier> supplierList) {
+  public void setSupplierList(@NotNull List<Supplier> supplierList) {
     this.supplierList = supplierList;
+  }
+
+  public void addSupplier(Supplier supplier) {
+    this.supplierList.add(supplier);
   }
 }
