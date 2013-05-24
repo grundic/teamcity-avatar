@@ -72,7 +72,7 @@ public class AvatarServiceImpl implements AvatarService {
   @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     String avatarUrl = AvatarCache.getCache(user.getUsername());
-    if (avatarUrl.isEmpty()) {
+    if (null == avatarUrl) {
       AvatarSupplier avatarSupplier = getAvatarSupplier(user);
       if (null == avatarSupplier) {
         return "";

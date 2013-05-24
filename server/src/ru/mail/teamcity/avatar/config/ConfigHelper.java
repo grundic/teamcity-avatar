@@ -17,7 +17,7 @@ import java.io.InputStream;
  */
 public class ConfigHelper {
 
-  public final static String CONFIG_NAME = "avatar-config.xml";
+  private final static String CONFIG_NAME = "avatar-config.xml";
 
   @Nullable
   public static Suppliers read(@NotNull String serverConfigDir) throws JAXBException, FileNotFoundException {

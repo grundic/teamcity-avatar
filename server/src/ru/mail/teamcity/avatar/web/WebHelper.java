@@ -14,7 +14,7 @@ class WebHelper {
 
   private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
 
-  public final static String SUPPLIER_PARAMETER = "avatarSupplierType";
+  private final static String SUPPLIER_PARAMETER = "avatarSupplierType";
 
   @Nullable
   public static String getAvatarSupplierKey(@NotNull HttpServletRequest request) {

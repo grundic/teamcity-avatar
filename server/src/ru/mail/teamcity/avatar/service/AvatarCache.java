@@ -10,10 +10,10 @@ import java.util.concurrent.ConcurrentMap;
  * User: Grigory Chernyshev
  * Date: 12.05.13 23:31
  */
-public class AvatarCache {
-  private static ConcurrentMap<String, String> cache = new ConcurrentHashMap<String, String>();
+class AvatarCache {
+  private static final ConcurrentMap<String, String> cache = new ConcurrentHashMap<String, String>();
 
-  @NotNull
+  @Nullable
   public static String getCache(@NotNull String username) {
     return cache.get(username);
   }
