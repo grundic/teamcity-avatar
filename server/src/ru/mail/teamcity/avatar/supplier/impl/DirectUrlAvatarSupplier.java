@@ -20,7 +20,8 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
 
   @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
-    return user.getPropertyValue(PROPERTY_KEY);
+    String url = user.getPropertyValue(PROPERTY_KEY);
+    return null == url ? "" : url;
   }
 
   @NotNull
