@@ -25,7 +25,7 @@
           <c:set var="supplier" value="${suppliers.get(supplierBean.id)}"/>
           <input type="checkbox" id="${supplierBean.id}_checkbox" name="${supplierBean.id}"
                  <c:if test="${supplierBean.enabled}">checked="checked"</c:if>/>
-          <label for="${supplierBean.id}_checkbox">${supplier.optionName}</label>
+          <label for="${supplierBean.id}_checkbox" style="cursor: hand; cursor: pointer;">${supplier.optionName}</label>
         </li>
       </c:forEach>
     </ul>
