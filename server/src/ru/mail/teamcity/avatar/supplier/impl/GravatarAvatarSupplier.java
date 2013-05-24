@@ -30,10 +30,8 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
   public String getAvatarUrl(@NotNull SUser user) {
     String mail = user.getEmail();
     if (null != mail) {
-      String url = gravatar.getUrl(mail);
-      if (!url.contains("d=404")) {
-        return url;
-      }
+      // TODO: check if avatar is found
+      return gravatar.getUrl(mail);
     }
     return "";
   }
