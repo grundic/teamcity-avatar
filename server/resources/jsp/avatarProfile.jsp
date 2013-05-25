@@ -8,32 +8,10 @@
              type="java.util.Map<java.lang.String, ru.mail.teamcity.avatar.supplier.AvatarSupplier>"/>
 <jsp:useBean id="currentUser" scope="request" type="jetbrains.buildServer.users.SUser"/>
 
-<script type="text/javascript">
-
-  $j(document).ready(function () {
-
-    loadSupplierTemplate($j('#avatarSupplierType').val());
-
-    $j('#avatarSupplierType').change(function () {
-      loadSupplierTemplate($j(this).val());
-    });
-  });
-
-  function loadSupplierTemplate(supplier) {
-    var url = window['base_uri'] + "/avatarSupplierAjax.html?avatarSupplierType=" + supplier;
-    BS.ajaxRequest(encodeURI(url), {
-              onSuccess: function (transport) {
-                $j('#supplierTemplate').html(transport.responseText);
-              }
-            }
-    );
-  }
-</script>
-
 <l:settingsBlock title="Avatar configuration">
   <div class="clearfix">
 
-    <form id="avatarConfigurationForm" action="profileAvatarConfig.html" method="POST">
+    <form id="avatarConfigurationForm" action="">
       <label for="avatarSupplierType">Choose avatar supplier:</label>
 
       <div>
@@ -50,9 +28,12 @@
 
       <div id="supplierTemplate"></div>
 
-      <input type="submit" value="Save" class="btn"/>
+      <input id="avatarConfigurationFormSubmit" type="submit" value="Save" class="btn"/>
     </form>
 
   </div>
 
 </l:settingsBlock>
+
+<ul id="errors" class="hidden validation"></ul>
+<div id="success" class="hidden success"></div>

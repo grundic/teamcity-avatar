@@ -14,15 +14,17 @@
 
   <bean id="jsInjectionExtension" class="ru.mail.teamcity.avatar.extensions.pageExtension.JsInjectionExtension"/>
 
+  <!--suppress SpringBeanConstructorArgInspection -->
   <bean id="avatarServiceImpl" class="ru.mail.teamcity.avatar.service.AvatarServiceImpl"/>
 
   <!--suppress SpringBeanConstructorArgInspection -->
-  <bean id="avatarProfileConfiguration" class="ru.mail.teamcity.avatar.web.AvatarProfileConfiguration"/>
+  <bean id="avatarProfileConfiguration" class="ru.mail.teamcity.avatar.web.AvatarProfileController"/>
 
   <bean id="ajaxAvatarController" class="ru.mail.teamcity.avatar.web.AjaxAvatarController"/>
 
   <bean id="avatarSupplierAjaxController" class="ru.mail.teamcity.avatar.web.AvatarSupplierAjaxController"/>
 
+  <!--suppress SpringBeanConstructorArgInspection -->
   <bean id="avatarAdminController" class="ru.mail.teamcity.avatar.web.AvatarAdminController"/>
 
   <!-- Avatar supplier beans -->
