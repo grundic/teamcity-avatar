@@ -164,8 +164,6 @@ public class AvatarAdminController extends BaseFormXmlController {
     tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/jquery-ui-1.10.3.sortable.min.js"));
     tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/xml2json.js"));
     tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/avatar-admin.js"));
-
-    tab.addCssFile(pluginDescriptor.getPluginResourcesPath("css/admin-avatar.css"));
     tab.register();
   }
 }
