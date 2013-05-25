@@ -21,16 +21,17 @@ function saveSuppliers(context_path) {
     method: "POST",
     parameters: {suppliersXml: suppliersXml},
     onSuccess: function (transport) {
+      $j('#errors').empty().hide();
       var errors = BS.XMLResponse.processErrors(transport.responseXML, {}, function (id, elem) {
         $j('#errors').append("<li>" + elem.firstChild.nodeValue + "</li>");
       });
 
       if (errors) {
-        $j('#errors').show();
+        $j("#errors").slideDown("fast");
       }
       else {
         $j('#success').html(transport.responseText);
-        $j('#success').show();
+        $j('#success').slideDown("fast");
       }
     }
   });
