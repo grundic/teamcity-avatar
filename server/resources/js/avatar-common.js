@@ -45,7 +45,11 @@ var Avatar = {
    */
   addAvatarToUserPanel: function () {
     this._getAvatarUrl(Avatar.currentUser.extendedName, function (param_hash) {
-      $j("#beforeUserId").after('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+      if ($j("#avatar-profile").length == 0) {
+        $j("#beforeUserId").after('<img id="avatar-profile" class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+      } else {
+        $j("#avatar-profile").attr("src", param_hash['avatarUrl']);
+      }
     });
   },
 
