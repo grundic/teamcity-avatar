@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 class WebHelper {
 
-  private final static Logger LOG = Logger.getInstance(AvatarSupplierAjaxController.class.getName());
+  private final static Logger LOG = Logger.getInstance(WebHelper.class.getName());
 
   private final static String SUPPLIER_PARAMETER = "avatarSupplierType";
 
