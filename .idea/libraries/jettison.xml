@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jettison">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/jettison" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jettison" recursive="false" />
+  </library>
+</component>

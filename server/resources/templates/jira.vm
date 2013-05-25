@@ -1,0 +1,5 @@
+<p>Get avatar from Atlassian Jira instance. Username in Teamcity and Jira have to match.</p>
+
+#if($avatarUrl)
+<img src="$avatarUrl" alt="">
+#end

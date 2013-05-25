@@ -1,7 +1,13 @@
 package ru.mail.teamcity.avatar.supplier;
 
+import jetbrains.buildServer.util.PropertiesUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.BeanNameAware;
+import ru.mail.teamcity.avatar.AppConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * User: Grigory Chernyshev
@@ -17,5 +23,10 @@ public abstract class AbstractAvatarSupplier implements AvatarSupplier, BeanName
   @NotNull
   public String getBeanName() {
     return this.BEAN_NAME;
+  }
+
+  protected Properties readProperties(String serverConfigDir) throws IOException {
+    return PropertiesUtil.loadProperties(new File(serverConfigDir, AppConfiguration.PLUGIN_PROPERTIES)
+    );
   }
 }

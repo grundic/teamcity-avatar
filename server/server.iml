@@ -44,8 +44,14 @@
     <orderEntry type="library" name="Servlet Api" level="project" />
     <orderEntry type="library" name="spring" level="project" />
     <orderEntry type="library" name="TeamCity server runtime" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="velocity-1.7" level="project" />
+    <orderEntry type="library" name="velocity-1.7" level="project" />
     <orderEntry type="library" name="jgravatar-1.0" level="project" />
+    <orderEntry type="library" name="jira" level="project" />
+    <orderEntry type="library" name="apache" level="project" />
+    <orderEntry type="library" name="guava" level="project" />
+    <orderEntry type="library" name="jersey" level="project" />
+    <orderEntry type="library" name="joda-time" level="project" />
+    <orderEntry type="library" name="jettison" level="project" />
   </component>
 </module>
 

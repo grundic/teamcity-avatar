@@ -30,6 +30,6 @@
   <bean id="directUrlAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.DirectUrlAvatarSupplier"/>
   <bean id="bundledAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.BundledAvatarSupplier"/>
   <bean id="gravatarAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.GravatarAvatarSupplier"/>
-
+  <bean id="jiraAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.JiraAvatarSupplier"/>
 
 </beans>
