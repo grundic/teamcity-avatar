@@ -1,6 +1,5 @@
 package ru.mail.teamcity.avatar.web;
 
-import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.controllers.ActionErrors;
 import jetbrains.buildServer.controllers.BaseFormXmlController;
 import jetbrains.buildServer.users.SUser;
@@ -21,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  * Date: 29.04.13 21:39
  */
 public class AvatarProfileController extends BaseFormXmlController {
-
-  private final static Logger LOG = Logger.getInstance(AvatarProfileController.class.getName());
 
   @NotNull
   private final AvatarService myAvatarService;
@@ -72,9 +69,9 @@ public class AvatarProfileController extends BaseFormXmlController {
     ActionErrors actionErrors = new ActionErrors();
 
     SUser user = SessionUser.getUser(request);
-    String avatarSupplierKey = WebHelper.getAvatarSupplierKey(request);
+    String avatarSupplierKey = request.getParameter("avatarSupplierType");
     if (null == avatarSupplierKey) {
-      actionErrors.addError("wrongKey", "Failed to get avatar supplier key from request!");
+      actionErrors.addError("emptySupplierKey", "Avatar supplier key is not found in request!");
       writeErrors(xmlResponse, actionErrors);
       return;
     }
