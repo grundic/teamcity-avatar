@@ -22,7 +22,8 @@
 
   <bean id="ajaxAvatarController" class="ru.mail.teamcity.avatar.web.AjaxAvatarController"/>
 
-  <bean id="avatarSupplierAjaxController" class="ru.mail.teamcity.avatar.web.AvatarSupplierAjaxController"/>
+  <bean id="avatarProfileSupplierTemplateController"
+        class="ru.mail.teamcity.avatar.web.AvatarProfileSupplierTemplateController"/>
 
   <!--suppress SpringBeanConstructorArgInspection -->
   <bean id="avatarAdminController" class="ru.mail.teamcity.avatar.web.AvatarAdminController"/>

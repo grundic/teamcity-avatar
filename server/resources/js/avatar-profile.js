@@ -14,10 +14,21 @@ $j(document).ready(function () {
 });
 
 function loadSupplierTemplate(supplier) {
-  var url = window['base_uri'] + "/avatarSupplierAjax.html?avatarSupplierType=" + supplier;
+  var url = window['base_uri'] + "/avatarProfileSupplierTemplate.html?avatarSupplierType=" + supplier;
   BS.ajaxRequest(encodeURI(url), {
             onSuccess: function (transport) {
-              $j('#supplierTemplate').html(transport.responseText);
+              $j('#errors').empty().hide();
+              var errors = BS.XMLResponse.processErrors(transport.responseXML, {}, function (id, elem) {
+                $j('#errors').append("<li>" + elem.firstChild.nodeValue + "</li>");
+              });
+
+              if (errors) {
+                $j("#errors").slideDown("fast");
+              }
+              else {
+                var html = transport.responseXML.getElementsByTagName('html')[0].childNodes[0].nodeValue;
+                $j('#supplierTemplate').html(html);
+              }
             }
           }
   );
