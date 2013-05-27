@@ -48,10 +48,9 @@
     <orderEntry type="library" name="jgravatar-1.0" level="project" />
     <orderEntry type="library" name="jira" level="project" />
     <orderEntry type="library" name="apache" level="project" />
-    <orderEntry type="library" name="guava" level="project" />
     <orderEntry type="library" name="jersey" level="project" />
-    <orderEntry type="library" name="joda-time" level="project" />
     <orderEntry type="library" name="jettison" level="project" />
+    <orderEntry type="library" name="teamcity-lib" level="project" />
   </component>
 </module>
 

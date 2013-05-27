@@ -35,4 +35,10 @@
   <bean id="gravatarAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.GravatarAvatarSupplier"/>
   <bean id="jiraAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.JiraAvatarSupplier"/>
 
+  <bean id="avatarCacheBuilder"
+        class="com.google.common.cache.CacheBuilder"
+        factory-method="from">
+    <constructor-arg value="maximumSize=200, expireAfterAccess=30m, expireAfterWrite=2h"/>
+  </bean>
+
 </beans>
