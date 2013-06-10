@@ -17,6 +17,7 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
+import ru.mail.teamcity.avatar.AppConfiguration;
 import ru.mail.teamcity.avatar.service.AvatarService;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
 
@@ -69,14 +70,19 @@ public class AvatarProfileSupplierTemplateController extends BaseController {
           return;
         }
 
-        AvatarSupplier avatarSupplier = avatarService.getAvatarSupplier(avatarSupplierKey);
-        if (null == avatarSupplier) {
-          actionErrors.addError("wrongSupplier", String.format("Avatar supplier '%s' does not exists!", avatarSupplierKey));
-          actionErrors.serialize(xmlResponse);
-          return;
+        String html;
+        if (AppConfiguration.AUTO_SUPPLIER_KEY.equalsIgnoreCase(avatarSupplierKey)) {
+          html = "Automatic";
+        } else {
+          AvatarSupplier avatarSupplier = avatarService.getAvatarSupplier(avatarSupplierKey);
+          if (null == avatarSupplier) {
+            actionErrors.addError("wrongSupplier", String.format("Avatar supplier '%s' does not exists!", avatarSupplierKey));
+            actionErrors.serialize(xmlResponse);
+            return;
+          }
+          html = renderTemplate(avatarSupplier.getTemplate(), avatarSupplier.getTemplateParams(user));
         }
 
-        String html = renderTemplate(avatarSupplier.getTemplate(), avatarSupplier.getTemplateParams(user));
 
         final Element configElement = new Element("html");
         configElement.setContent(new CDATA(html));

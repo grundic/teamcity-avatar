@@ -14,6 +14,7 @@ import ru.mail.teamcity.avatar.config.ConfigHelper;
 import ru.mail.teamcity.avatar.config.Supplier;
 import ru.mail.teamcity.avatar.config.Suppliers;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.IndividualAvatarSupplier;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -48,8 +49,18 @@ public class AvatarServiceImpl implements AvatarService {
               public String load(SUser user) {
                 AvatarSupplier avatarSupplier = getAvatarSupplier(user);
                 if (null == avatarSupplier) {
+                  // TODO: add configuration checkbox to enable/disable individual suppliers
+                  for (AvatarSupplier supplier : getEnabledSuppliers().values()) {
+                    if (supplier instanceof IndividualAvatarSupplier) {
+                      String url = supplier.getAvatarUrl(user);
+                      if (!url.isEmpty()) {
+                        return url;
+                      }
+                    }
+                  }
                   return "";
                 }
+
                 return avatarSupplier.getAvatarUrl(user);
               }
             });
@@ -77,7 +88,6 @@ public class AvatarServiceImpl implements AvatarService {
 
   @NotNull
   public Map<String, AvatarSupplier> getEnabledSuppliers() {
-
     Map<String, AvatarSupplier> enabledSuppliers = new LinkedHashMap<String, AvatarSupplier>();
     Suppliers suppliersBean = ConfigHelper.load(serverPaths.getConfigDir(), suppliers);
     for (Supplier supplier : suppliersBean.getSupplierList()) {
@@ -89,10 +99,18 @@ public class AvatarServiceImpl implements AvatarService {
   }
 
 
-  public void store(@NotNull SUser user, @NotNull AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
-    user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
-    avatarSupplier.store(user, params);
-    cache.put(user, avatarSupplier.getAvatarUrl(user));
+  public void store(@NotNull SUser user, @Nullable AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
+    if (null == avatarSupplier) {
+      user.setUserProperty(PROPERTY_KEY, null);
+      // update cache
+      cache.invalidate(user);
+      getAvatarUrl(user);
+    } else {
+      user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
+      avatarSupplier.store(user, params);
+      cache.put(user, avatarSupplier.getAvatarUrl(user));
+    }
+
   }
 
   @NotNull
@@ -103,5 +121,9 @@ public class AvatarServiceImpl implements AvatarService {
       LOG.error(e.getCause());
       return "";
     }
+  }
+
+  public void flushCache() {
+    cache.invalidateAll();
   }
 }

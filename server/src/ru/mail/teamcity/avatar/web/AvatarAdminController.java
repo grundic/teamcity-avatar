@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.mail.teamcity.avatar.config.ConfigHelper;
 import ru.mail.teamcity.avatar.config.Supplier;
 import ru.mail.teamcity.avatar.config.Suppliers;
+import ru.mail.teamcity.avatar.service.AvatarService;
 import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,10 @@ public class AvatarAdminController extends BaseFormXmlController {
   private final String myJspPagePath;
 
   @NotNull
-  private final ServerPaths myServerPaths;
+  private final ServerPaths serverPaths;
+
+  @NotNull
+  private final AvatarService avatarService;
 
   @NotNull
   private final Map<String, AvatarSupplier> suppliers;
@@ -50,11 +54,13 @@ public class AvatarAdminController extends BaseFormXmlController {
           @NotNull final WebControllerManager webControllerManager,
           @NotNull final PagePlaces pagePlaces,
           @NotNull ServerPaths serverPaths,
+          @NotNull AvatarService avatarService,
           @NotNull Map<String, AvatarSupplier> suppliers) {
     super(server);
 
     myJspPagePath = pluginDescriptor.getPluginResourcesPath("jsp/avatarAdminConfiguration.jsp");
-    myServerPaths = serverPaths;
+    this.serverPaths = serverPaths;
+    this.avatarService = avatarService;
     this.suppliers = suppliers;
 
     webControllerManager.registerController("/admin/avatarAdminConfiguration.html", this);
@@ -66,7 +72,7 @@ public class AvatarAdminController extends BaseFormXmlController {
     final ModelAndView modelAndView = new ModelAndView(myJspPagePath);
     final ActionErrors actionErrors = new ActionErrors();
 
-    Suppliers suppliersBean = ConfigHelper.load(myServerPaths.getConfigDir(), suppliers);
+    Suppliers suppliersBean = ConfigHelper.load(serverPaths.getConfigDir(), suppliers);
 
     modelAndView.getModel().put("suppliers", suppliers);
     modelAndView.getModel().put("suppliersBean", suppliersBean);
@@ -103,7 +109,7 @@ public class AvatarAdminController extends BaseFormXmlController {
     }
 
     try {
-      ConfigHelper.write(suppliersBean, myServerPaths.getConfigDir());
+      ConfigHelper.write(suppliersBean, serverPaths.getConfigDir());
     } catch (JAXBException e) {
       LOG.error("Failed to serialize Supplier XML!");
       actionErrors.addError(null, "Failed to serialize Supplier XML! " + e.getCause().getMessage());
@@ -114,6 +120,7 @@ public class AvatarAdminController extends BaseFormXmlController {
       return;
     }
 
+    avatarService.flushCache();
     xmlResponse.addContent("Settings are successfully saved!");
   }
 

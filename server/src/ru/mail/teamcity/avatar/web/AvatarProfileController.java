@@ -76,11 +76,14 @@ public class AvatarProfileController extends BaseFormXmlController {
       return;
     }
 
-    AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(avatarSupplierKey);
-    if (null == avatarSupplier) {
-      actionErrors.addError("wrongSupplier", String.format("Failed to get avatar supplier by %s key!", avatarSupplierKey));
-      writeErrors(xmlResponse, actionErrors);
-      return;
+    AvatarSupplier avatarSupplier = null;
+    if (!AppConfiguration.AUTO_SUPPLIER_KEY.equalsIgnoreCase(avatarSupplierKey)) {
+      avatarSupplier = myAvatarService.getAvatarSupplier(avatarSupplierKey);
+      if (null == avatarSupplier) {
+        actionErrors.addError("wrongSupplier", String.format("Failed to get avatar supplier by %s key!", avatarSupplierKey));
+        writeErrors(xmlResponse, actionErrors);
+        return;
+      }
     }
 
     myAvatarService.store(user, avatarSupplier, request.getParameterMap());

@@ -10,6 +10,7 @@ import java.util.List;
 public class AppConfiguration {
   public final static String PLUGIN_NAME = "teamcity-avatar";
   public final static String PLUGIN_PROPERTIES = PLUGIN_NAME + ".properties";
+  public final static String AUTO_SUPPLIER_KEY = "auto";
 
   public final static List<Integer> SUPPORTED_VERSIONS = Arrays.asList(7, 8);
 }

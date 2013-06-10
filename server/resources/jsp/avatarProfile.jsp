@@ -16,6 +16,7 @@
 
       <div>
         <select id="avatarSupplierType" name="avatarSupplierType">
+          <option value="auto">-- Automatic --</option>
           <c:forEach var="supplier" items="${suppliers}">
             <option value="${supplier.key}"
                     <c:if test="${selectedAvatarSupplier == supplier.key}">selected</c:if>
