@@ -60,7 +60,7 @@ public class AvatarProfileController extends BaseFormXmlController {
     AvatarSupplier avatarSupplier = myAvatarService.getAvatarSupplier(user);
     modelAndView.getModel().put("avatarService", myAvatarService);
     modelAndView.getModel().put("selectedAvatarSupplier", null != avatarSupplier ? avatarSupplier.getBeanName() : "");
-    modelAndView.getModel().put("suppliers", myAvatarService.getSuppliers());
+    modelAndView.getModel().put("suppliers", myAvatarService.getEnabledSuppliers());
     return modelAndView;
   }
 

@@ -17,14 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.mail.teamcity.avatar.config.ConfigHelper;
 import ru.mail.teamcity.avatar.config.Supplier;
 import ru.mail.teamcity.avatar.config.Suppliers;
-import ru.mail.teamcity.avatar.supplier.IndividualAvatarSupplier;
+import ru.mail.teamcity.avatar.supplier.AvatarSupplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +42,7 @@ public class AvatarAdminController extends BaseFormXmlController {
   private final ServerPaths myServerPaths;
 
   @NotNull
-  private final Map<String, IndividualAvatarSupplier> suppliers;
+  private final Map<String, AvatarSupplier> suppliers;
 
   public AvatarAdminController(
           @NotNull SBuildServer server,
@@ -52,7 +50,7 @@ public class AvatarAdminController extends BaseFormXmlController {
           @NotNull final WebControllerManager webControllerManager,
           @NotNull final PagePlaces pagePlaces,
           @NotNull ServerPaths serverPaths,
-          @NotNull Map<String, IndividualAvatarSupplier> suppliers) {
+          @NotNull Map<String, AvatarSupplier> suppliers) {
     super(server);
 
     myJspPagePath = pluginDescriptor.getPluginResourcesPath("jsp/avatarAdminConfiguration.jsp");
@@ -68,36 +66,7 @@ public class AvatarAdminController extends BaseFormXmlController {
     final ModelAndView modelAndView = new ModelAndView(myJspPagePath);
     final ActionErrors actionErrors = new ActionErrors();
 
-    Suppliers suppliersBean;
-    try {
-      suppliersBean = ConfigHelper.read(myServerPaths.getConfigDir());
-    } catch (Exception e) {
-      LOG.error(e.getMessage());
-      suppliersBean = new Suppliers();
-    }
-
-    assert suppliersBean != null;
-    List<String> suppliersID = new ArrayList<String>();
-    List<Supplier> itemsToRemove = new ArrayList<Supplier>();
-
-    for (Supplier supplierBean : suppliersBean.getSupplierList()) {
-      IndividualAvatarSupplier supplier = suppliers.get(supplierBean.getId());
-      if (null == supplier) {
-        actionErrors.addError("wrongSupplier", String.format("Failed to get supplier by %s id!", supplierBean.getId()));
-        itemsToRemove.add(supplierBean);
-        continue;
-      }
-      suppliersID.add(supplierBean.getId());
-    }
-    suppliersBean.getSupplierList().removeAll(itemsToRemove);
-
-
-    // iterate over suppliers loaded from beans and check, that supplier was saved in config
-    for (String id : suppliers.keySet()) {
-      if (!suppliersID.contains(id)) {
-        suppliersBean.addSupplier(new Supplier(id, false));
-      }
-    }
+    Suppliers suppliersBean = ConfigHelper.load(myServerPaths.getConfigDir(), suppliers);
 
     modelAndView.getModel().put("suppliers", suppliers);
     modelAndView.getModel().put("suppliersBean", suppliersBean);

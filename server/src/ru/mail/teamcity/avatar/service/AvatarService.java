@@ -26,10 +26,18 @@ public interface AvatarService {
   public AvatarSupplier getAvatarSupplier(@NotNull String avatarSupplierKey);
 
   /*
-   * Return registered avatar suppliers
+   * Return all available avatar suppliers
    */
   @NotNull
-  public Map<String, AvatarSupplier> getSuppliers();
+  public Map<String, AvatarSupplier> getAllSuppliers();
+
+  /*
+   * Return all enabled avatar suppliers.
+   * Administrator can enable/disable supplier in admin area.
+   */
+  @NotNull
+  public Map<String, AvatarSupplier> getEnabledSuppliers();
+
 
   /*
    * Save avatar supplier, selected by user and supplier's settings
