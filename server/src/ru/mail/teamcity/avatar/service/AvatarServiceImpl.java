@@ -37,9 +37,9 @@ public class AvatarServiceImpl implements AvatarService {
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
   public AvatarServiceImpl(
-          @NotNull Map<String, AvatarSupplier> suppliers,
+          @NotNull final Map<String, AvatarSupplier> suppliers,
           @NotNull CacheBuilder cacheBuilder,
-          @NotNull ServerPaths serverPaths) {
+          @NotNull final ServerPaths serverPaths) {
     this.suppliers = suppliers;
     this.serverPaths = serverPaths;
 
@@ -48,8 +48,13 @@ public class AvatarServiceImpl implements AvatarService {
             new CacheLoader<SUser, String>() {
               public String load(SUser user) {
                 AvatarSupplier avatarSupplier = getAvatarSupplier(user);
-                if (null == avatarSupplier) {
-                  // TODO: add configuration checkbox to enable/disable individual suppliers
+                Suppliers suppliersBean = ConfigHelper.load(serverPaths.getConfigDir(), suppliers);
+
+                if (null != avatarSupplier && getEnabledSuppliers().values().contains(avatarSupplier)) {
+                  return avatarSupplier.getAvatarUrl(user);
+                }
+
+                if (suppliersBean.isIndividualEnabled()) {
                   for (AvatarSupplier supplier : getEnabledSuppliers().values()) {
                     if (supplier instanceof IndividualAvatarSupplier) {
                       String url = supplier.getAvatarUrl(user);
@@ -58,10 +63,8 @@ public class AvatarServiceImpl implements AvatarService {
                       }
                     }
                   }
-                  return "";
                 }
-
-                return avatarSupplier.getAvatarUrl(user);
+                return "";
               }
             });
   }
