@@ -1,8 +1,8 @@
 package ru.mail.teamcity.avatar.web;
 
+import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.controllers.AjaxRequestProcessor;
 import jetbrains.buildServer.controllers.BaseController;
-import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.users.UserModel;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
  * Date: 30.04.13 12:43
  */
 public class AjaxAvatarController extends BaseController {
+
+  private final static Logger LOG = Logger.getInstance(AjaxAvatarController.class.getName());
 
   @NotNull
   private final AvatarService avatarService;
@@ -71,8 +73,7 @@ public class AjaxAvatarController extends BaseController {
           configElement.setContent(new Text(avatarUrl));
           xmlResponse.addContent(configElement);
         } catch (Exception e) {
-          Loggers.SERVER.warn(e.getMessage());
-          Loggers.SERVER.debug(e);
+          LOG.error(e.getMessage());
           final Element error = new Element("error");
           error.setContent(new Text(e.getMessage()));
         }
