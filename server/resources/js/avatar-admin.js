@@ -26,6 +26,8 @@ function saveSuppliers(context_path) {
     parameters: {suppliersXml: suppliersXml},
     onSuccess: function (transport) {
       $j('#errors').empty().hide();
+      $j('#success').empty().hide();
+
       var errors = BS.XMLResponse.processErrors(transport.responseXML, {}, function (id, elem) {
         $j('#errors').append("<li>" + elem.firstChild.nodeValue + "</li>");
       });
