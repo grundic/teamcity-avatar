@@ -18,6 +18,8 @@ public class Suppliers {
   @NotNull
   private List<Supplier> supplierList = new ArrayList<Supplier>();
 
+  private boolean individualEnabled;
+
   @NotNull
   @XmlElement(name = "supplier")
   public List<Supplier> getSupplierList() {
@@ -30,5 +32,13 @@ public class Suppliers {
 
   public void addSupplier(Supplier supplier) {
     this.supplierList.add(supplier);
+  }
+
+  public boolean isIndividualEnabled() {
+    return individualEnabled;
+  }
+
+  public void setIndividualEnabled(boolean individualEnabled) {
+    this.individualEnabled = individualEnabled;
   }
 }

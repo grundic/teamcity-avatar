@@ -15,10 +15,15 @@
   </ul>
 </c:if>
 
+<h2 style="margin-bottom: 10px">Avatar configuration</h2>
+
 <form id="adminAvatarSettings" name="adminAvatarSettings" action="">
+  <input type="checkbox" id="individualEnabled_checkbox" name="individualEnabled"
+         <c:if test="${suppliersBean.individualEnabled}">checked="checked"</c:if>/>
+  <label for="individualEnabled_checkbox">Enable automatic supplying</label>
+
   <fieldset class="group">
     <legend>Select automatic avatar suppliers:</legend>
-
     <ul id="suppliers-container">
       <c:forEach var="supplierBean" items="${suppliersBean.supplierList}">
         <li id="${supplierBean.id}">

@@ -14,7 +14,11 @@ function saveSuppliers(context_path) {
     supplierList.push(supplier);
   }
 
-  var suppliersJson = {suppliers: {supplier: supplierList}};
+  var suppliersJson = {suppliers: {
+    individualEnabled: $j('#individualEnabled_checkbox').prop("checked"),
+    supplier: supplierList}
+  };
+
   var suppliersXml = x2js.json2xml_str(suppliersJson);
 
   BS.ajaxRequest(context_path + '/admin/avatarAdminConfiguration.html', {
