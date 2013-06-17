@@ -90,8 +90,8 @@ public class AvatarAdminController extends BaseFormXmlController {
     try {
       suppliersBean = ConfigHelper.read(new ByteArrayInputStream(xml.getBytes("UTF-8")));
     } catch (Exception e) {
-      LOG.error(ExceptionUtil.getDisplayMessage(e.getCause()));
-      actionErrors.addError(ExceptionUtil.getDisplayMessage(e.getCause()), null);
+      LOG.error(ExceptionUtil.getDisplayMessage(e));
+      actionErrors.addError("error", ExceptionUtil.getDisplayMessage(e));
       writeErrors(xmlResponse, actionErrors);
       return;
     }
