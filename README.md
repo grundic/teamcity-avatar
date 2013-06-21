@@ -55,3 +55,4 @@ Screenshots
 ![Screenshot1](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-1.png?raw=true)
 ![Screenshot2](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-2.png?raw=true)
 ![Screenshot3](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-3.png?raw=true)
+![Screenshot4](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-4.png?raw=true)
