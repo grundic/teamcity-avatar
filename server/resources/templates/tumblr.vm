@@ -1,0 +1,7 @@
+<p><b>Tumblr</b>, stylized in their logo as <b>tumblr.</b>, is a microblogging platform and social networking website,
+    owned and operated by Tumblr, Inc. The service allows users to post multimedia and other content to a short-form
+    blog.</p>
+
+#if($avatarUrl)
+<img src="$avatarUrl" alt="">
+#end

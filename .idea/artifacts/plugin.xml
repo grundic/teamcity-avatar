@@ -20,6 +20,7 @@
         <element id="library" level="project" name="apache" />
         <element id="library" level="project" name="jersey" />
         <element id="library" level="project" name="jettison" />
+        <element id="library" level="project" name="jackson" />
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-server-plugin.xml" output-file-name="teamcity-plugin.xml" />
     </root>

@@ -51,6 +51,7 @@
     <orderEntry type="library" name="jersey" level="project" />
     <orderEntry type="library" name="jettison" level="project" />
     <orderEntry type="library" name="teamcity-lib" level="project" />
+    <orderEntry type="library" name="jackson" level="project" />
   </component>
 </module>
 
