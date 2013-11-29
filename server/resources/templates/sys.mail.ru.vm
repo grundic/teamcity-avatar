@@ -1,0 +1,13 @@
+<p>Get avatar from <a href="http://sys.mail.ru">sys.mail.ru</a>.</p>
+
+#if($errors)
+<ul>
+  #foreach($error in $errors)
+      <li class="error">$error</li>
+  #end
+</ul>
+#end
+
+#if($avatarUrl)
+<img src="$avatarUrl" alt="">
+#end

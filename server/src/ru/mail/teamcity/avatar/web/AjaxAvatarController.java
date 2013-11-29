@@ -33,7 +33,7 @@ public class AjaxAvatarController extends BaseController {
   @NotNull
   private final UserModel userModel;
 
-  private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\((\\w+)\\)$");
+  private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\(([\\w.]+)\\)");
 
   public AjaxAvatarController(
           @NotNull WebControllerManager manager,

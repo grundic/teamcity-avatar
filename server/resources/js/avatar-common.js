@@ -21,7 +21,7 @@ var Avatar = {
   _getAvatarUrl: function (username, callback, param_hash) {
     var url = window['base_uri'] + "/avatarAjax.html";
     if (username) {
-      url += "?username=" + username;
+      url += "?username='" + username + "'";
     }
 
     if (username in Avatar._cache) {

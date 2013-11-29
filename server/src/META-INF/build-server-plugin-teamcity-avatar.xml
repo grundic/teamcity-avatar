@@ -35,6 +35,7 @@
   <bean id="gravatarAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.GravatarAvatarSupplier"/>
   <bean id="jiraAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.JiraAvatarSupplier"/>
   <bean id="tumblrAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.TumblrAvatarSupplier"/>
+  <bean id="sysMailRuAvatarSupplier" class="ru.mail.teamcity.avatar.supplier.impl.SysMailRuAvatarSupplier"/>
 
   <bean id="avatarCacheBuilder"
         class="com.google.common.cache.CacheBuilder"
