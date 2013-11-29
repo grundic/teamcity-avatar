@@ -3,7 +3,7 @@
 #if($errors)
 <ul>
   #foreach($error in $errors)
-      <li class="error">$error</li>
+      <li class="validation">$error</li>
   #end
 </ul>
 #end
