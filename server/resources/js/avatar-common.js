@@ -44,13 +44,26 @@ var Avatar = {
    * Add avatar for current user to user panel.
    */
   addAvatarToUserPanel: function () {
-    this._getAvatarUrl(Avatar.currentUser.extendedName, function (param_hash) {
-      if ($j("#avatar-profile").length == 0) {
-        $j("#beforeUserId").after('<img id="avatar-profile" class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
-      } else {
-        $j("#avatar-profile").attr("src", param_hash['avatarUrl']);
-      }
-    });
+    console.log("This method should be implemented for each Teamcity version individually, because of differences in page makeup");
+  },
+
+  /*
+   * Add hidden div with link to the image user's avatar and create handler for mouse move.
+   */
+  addBigAvatar: function (username, img_url, element) {
+    var big_avatar_id = "big-avatar-" + this._hashCode(username);
+    if ($j("#" + big_avatar_id).length == 0) {
+      $j('body').append('<div id="big-avatar-container"><img id="' + big_avatar_id + '" class="big-avatar" src="' + img_url + '"></div>');
+    } else {
+      $j("#" + big_avatar_id).attr("src", img_url);
+    }
+
+    // add handlers for mousemove/mouseout events
+    element.mousemove(function (event) {
+      $j("#" + big_avatar_id).css({top: event.pageY + 15, left: event.pageX}).show();
+    }).mouseout(function () {
+              $j("#" + big_avatar_id).hide();
+            });
   },
 
   /*
@@ -85,7 +98,8 @@ var Avatar = {
 
       if ($j("#" + element_id).length == 0) {
         $this._getAvatarUrl(username, function (param_hash) {
-          $j(param_hash['this']).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+          $j(param_hash['this']).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
+          $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         }, {"this": this});
       }
     });
@@ -94,14 +108,18 @@ var Avatar = {
   addAvatarToPendingChangesDivTab: function () {
     var $this = this;
 
-    $j($j('#changesTable tbody td.userName span').each(function () {
+    $j($j('#changesTable tbody td.userName span').each(function (i) {
       var $span = this;
       var _onmouseover = $j(this).attr('onmouseover');
       var match = Avatar.USERNAME_REGEX.exec(_onmouseover);
+
       if (match) {
         var username = match[1];
+        var element_id = "avatar-pending-div-" + $this._hashCode(username) + "-" + i;
+
         $this._getAvatarUrl(username, function (param_hash) {
-          $j($span).before('<img class="avatar" src="' + param_hash['avatarUrl'] + '" height="18" width="18">');
+          $j($span).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
+          $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         });
       } else {
         console.log("[ERROR] Failed to match username: " + _onmouseover);
