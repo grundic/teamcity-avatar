@@ -19,6 +19,7 @@ import ru.mail.teamcity.avatar.supplier.IndividualAvatarSupplier;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * User: Grigory Chernyshev
@@ -27,46 +28,44 @@ import java.util.concurrent.ExecutionException;
 public class AvatarServiceImpl implements AvatarService {
 
   private final static Logger LOG = Logger.getInstance(AvatarServiceImpl.class.getName());
-
   private final Map<String, AvatarSupplier> suppliers;
   private final LoadingCache<SUser, String> cache;
   @NotNull
   private final ServerPaths serverPaths;
-
   private final String PROPERTY_KEY_NAME = "avatar.selected.supplier.type";
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
   public AvatarServiceImpl(
           @NotNull final Map<String, AvatarSupplier> suppliers,
-          @NotNull CacheBuilder cacheBuilder,
           @NotNull final ServerPaths serverPaths) {
     this.suppliers = suppliers;
     this.serverPaths = serverPaths;
 
-    //noinspection unchecked
-    this.cache = cacheBuilder.build(
-            new CacheLoader<SUser, String>() {
-              public String load(SUser user) {
-                AvatarSupplier avatarSupplier = getAvatarSupplier(user);
-                Suppliers suppliersBean = ConfigHelper.load(serverPaths.getConfigDir(), suppliers);
+    this.cache = CacheBuilder.newBuilder().
+            expireAfterWrite(1, TimeUnit.DAYS).
+            build(
+                    new CacheLoader<SUser, String>() {
+                      public String load(SUser user) {
+                        AvatarSupplier avatarSupplier = getAvatarSupplier(user);
+                        Suppliers suppliersBean = ConfigHelper.load(serverPaths.getConfigDir(), suppliers);
 
-                if (null != avatarSupplier && getEnabledSuppliers().values().contains(avatarSupplier)) {
-                  return avatarSupplier.getAvatarUrl(user);
-                }
+                        if (null != avatarSupplier && getEnabledSuppliers().values().contains(avatarSupplier)) {
+                          return avatarSupplier.getAvatarUrl(user);
+                        }
 
-                if (suppliersBean.isIndividualEnabled()) {
-                  for (AvatarSupplier supplier : getEnabledSuppliers().values()) {
-                    if (supplier instanceof IndividualAvatarSupplier) {
-                      String url = supplier.getAvatarUrl(user);
-                      if (!url.isEmpty()) {
-                        return url;
+                        if (suppliersBean.isIndividualEnabled()) {
+                          for (AvatarSupplier supplier : getEnabledSuppliers().values()) {
+                            if (supplier instanceof IndividualAvatarSupplier) {
+                              String url = supplier.getAvatarUrl(user);
+                              if (!url.isEmpty()) {
+                                return url;
+                              }
+                            }
+                          }
+                        }
+                        return "";
                       }
-                    }
-                  }
-                }
-                return "";
-              }
-            });
+                    });
   }
 
   @Nullable
@@ -100,7 +99,6 @@ public class AvatarServiceImpl implements AvatarService {
     }
     return enabledSuppliers;
   }
-
 
   public void store(@NotNull SUser user, @Nullable AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
     if (null == avatarSupplier) {
