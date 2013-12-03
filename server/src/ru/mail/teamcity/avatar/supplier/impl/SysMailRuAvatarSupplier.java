@@ -39,6 +39,17 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
 
   @NotNull
   public String getAvatarUrl(SUser user) {
+    return doGetAvatarUrl(user.getUsername());
+  }
+
+  @NotNull
+  @Override
+  public String getAvatarUrl(String identifier) {
+    return doGetAvatarUrl(identifier);
+  }
+
+  @NotNull
+  private String doGetAvatarUrl(String username) {
     try {
       Properties properties = readProperties(serverPaths.getConfigDir());
       String apiApp = properties.getProperty(MAILRU_API_APP);
@@ -51,7 +62,7 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
 
       HttpClient client = new DefaultHttpClient();
       HttpGet getRequest = new HttpGet(String.format(
-              "https://sys.mail.ru/api/v1/user/?format=json&api_app=%s&api_key=%s&username=%s", apiApp, apiKey, user.getUsername()));
+              "https://sys.mail.ru/api/v1/user/?format=json&api_app=%s&api_key=%s&username=%s", apiApp, apiKey, username));
       getRequest.addHeader("accept", "application/json");
 
       HttpParams params = new BasicHttpParams();
@@ -68,7 +79,7 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
       if (sysMailRuResponse.getObjects().size() == 1) {
         return String.format("http://sys.mail.ru%s", sysMailRuResponse.getObjects().get(0).getProfile().getFoto());
       } else {
-        errors.add(String.format("Can't find suitable user in sys.mail.ru catalog for your username '%s'", user.getUsername()));
+        errors.add(String.format("Can't find suitable user in sys.mail.ru catalog for your username '%s'", username));
       }
     } catch (FileNotFoundException e) {
       this.errors.add(String.format("Failed to locate configuration file %s/%s", serverPaths.getConfigDir(), AppConfiguration.PLUGIN_PROPERTIES));
