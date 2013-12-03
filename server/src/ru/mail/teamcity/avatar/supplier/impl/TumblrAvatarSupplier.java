@@ -22,11 +22,19 @@ import java.util.Map;
 public class TumblrAvatarSupplier extends AbstractAvatarSupplier implements IndividualAvatarSupplier {
   @NotNull
   public String getAvatarUrl(SUser user) {
+    return doGetAvatarUrl(user.getUsername());
+  }
 
+  @NotNull
+  @Override
+  public String getAvatarUrl(String identifier) {
+    return doGetAvatarUrl(identifier);
+  }
 
+  private String doGetAvatarUrl(String name) {
     try {
       HttpClient client = new DefaultHttpClient();
-      HttpGet getRequest = new HttpGet(String.format("http://api.tumblr.com/v2/blog/%s/avatar", user.getUsername()));
+      HttpGet getRequest = new HttpGet(String.format("http://api.tumblr.com/v2/blog/%s/avatar", name));
       getRequest.addHeader("accept", "application/json");
 
       HttpParams params = new BasicHttpParams();
@@ -36,6 +44,9 @@ public class TumblrAvatarSupplier extends AbstractAvatarSupplier implements Indi
       HttpResponse response = client.execute(getRequest);
 
       ObjectMapper objectMapper = new ObjectMapper();
+      if (response.getStatusLine().getStatusCode() == 404) {
+        return "";
+      }
       TumblrAvatar tumblrAvatar = objectMapper.readValue(response.getEntity().getContent(), TumblrAvatar.class);
 
       if (tumblrAvatar.getMeta().getStatus().equalsIgnoreCase("301")) {
@@ -68,12 +79,30 @@ public class TumblrAvatarSupplier extends AbstractAvatarSupplier implements Indi
   }
 }
 
-
 /**
  * Bean for Tumblr avatar api response.
  */
 @SuppressWarnings("UnusedDeclaration")
 class TumblrAvatar {
+  private Meta _meta;
+  private Response _response;
+
+  Meta getMeta() {
+    return _meta;
+  }
+
+  void setMeta(Meta meta) {
+    _meta = meta;
+  }
+
+  Response getResponse() {
+    return _response;
+  }
+
+  void setResponse(Response response) {
+    _response = response;
+  }
+
   public static class Meta {
     private String _status, _msg;
 
@@ -104,24 +133,5 @@ class TumblrAvatar {
     public void setAvatar_url(String avatar_url) {
       _avatar_url = avatar_url;
     }
-  }
-
-  private Meta _meta;
-  private Response _response;
-
-  Meta getMeta() {
-    return _meta;
-  }
-
-  void setMeta(Meta meta) {
-    _meta = meta;
-  }
-
-  Response getResponse() {
-    return _response;
-  }
-
-  void setResponse(Response response) {
-    _response = response;
   }
 }
