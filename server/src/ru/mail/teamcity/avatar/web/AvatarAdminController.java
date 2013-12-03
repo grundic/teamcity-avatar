@@ -121,7 +121,7 @@ public class AvatarAdminController extends BaseFormXmlController {
     }
 
     avatarService.flushCache();
-    xmlResponse.addContent("Settings are successfully saved!");
+    xmlResponse.addContent("Settings are successfully saved and cache is flushed!");
   }
 
   private void registerAdminTab(@NotNull PluginDescriptor pluginDescriptor, @NotNull PagePlaces pagePlaces) {

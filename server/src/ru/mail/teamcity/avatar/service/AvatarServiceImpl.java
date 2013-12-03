@@ -162,5 +162,6 @@ public class AvatarServiceImpl implements AvatarService {
 
   public void flushCache() {
     userCache.invalidateAll();
+    idCache.invalidateAll();
   }
 }
