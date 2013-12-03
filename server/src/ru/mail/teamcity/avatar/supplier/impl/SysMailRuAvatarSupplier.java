@@ -50,6 +50,7 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
 
   @NotNull
   private String doGetAvatarUrl(String username) {
+    this.errors = new ArrayList<String>();
     try {
       Properties properties = readProperties(serverPaths.getConfigDir());
       String apiApp = properties.getProperty(MAILRU_API_APP);
@@ -102,7 +103,6 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
 
   @NotNull
   public Map<String, Object> getTemplateParams(@NotNull SUser user) {
-    this.errors = new ArrayList<String>();
     HashMap<String, Object> params = new HashMap<String, Object>();
     params.put("avatarUrl", getAvatarUrl(user));
     params.put("errors", errors);
