@@ -29,7 +29,8 @@ public class AvatarServiceImpl implements AvatarService {
 
   private final static Logger LOG = Logger.getInstance(AvatarServiceImpl.class.getName());
   private final Map<String, AvatarSupplier> suppliers;
-  private final LoadingCache<SUser, String> cache;
+  private final LoadingCache<SUser, String> userCache;
+  private final LoadingCache<String, String> idCache;
   @NotNull
   private final ServerPaths serverPaths;
   private final String PROPERTY_KEY_NAME = "avatar.selected.supplier.type";
@@ -41,7 +42,12 @@ public class AvatarServiceImpl implements AvatarService {
     this.suppliers = suppliers;
     this.serverPaths = serverPaths;
 
-    this.cache = CacheBuilder.newBuilder().
+    userCache = initUserCache();
+    idCache = initIdCache();
+  }
+
+  private LoadingCache<SUser, String> initUserCache() {
+    return CacheBuilder.newBuilder().
             expireAfterWrite(1, TimeUnit.DAYS).
             build(
                     new CacheLoader<SUser, String>() {
@@ -60,6 +66,26 @@ public class AvatarServiceImpl implements AvatarService {
                               if (!url.isEmpty()) {
                                 return url;
                               }
+                            }
+                          }
+                        }
+                        return "";
+                      }
+                    });
+
+  }
+
+  private LoadingCache<String, String> initIdCache() {
+    return CacheBuilder.newBuilder().
+            expireAfterWrite(1, TimeUnit.DAYS).
+            build(
+                    new CacheLoader<String, String>() {
+                      public String load(String identifier) {
+                        for (AvatarSupplier supplier : getEnabledSuppliers().values()) {
+                          if (supplier instanceof IndividualAvatarSupplier) {
+                            String url = supplier.getAvatarUrl(identifier);
+                            if (!url.isEmpty()) {
+                              return url;
                             }
                           }
                         }
@@ -103,13 +129,13 @@ public class AvatarServiceImpl implements AvatarService {
   public void store(@NotNull SUser user, @Nullable AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params) {
     if (null == avatarSupplier) {
       user.setUserProperty(PROPERTY_KEY, null);
-      // update cache
-      cache.invalidate(user);
+      // update userCache
+      userCache.invalidate(user);
       getAvatarUrl(user);
     } else {
       user.setUserProperty(PROPERTY_KEY, avatarSupplier.getBeanName());
       avatarSupplier.store(user, params);
-      cache.put(user, avatarSupplier.getAvatarUrl(user));
+      userCache.put(user, avatarSupplier.getAvatarUrl(user));
     }
 
   }
@@ -117,7 +143,17 @@ public class AvatarServiceImpl implements AvatarService {
   @NotNull
   public String getAvatarUrl(@NotNull SUser user) {
     try {
-      return cache.get(user);
+      return userCache.get(user);
+    } catch (ExecutionException e) {
+      LOG.error(e.getCause());
+      return "";
+    }
+  }
+
+  @NotNull
+  public String getAvatarUrl(@Nullable String identifier) {
+    try {
+      return idCache.get(identifier);
     } catch (ExecutionException e) {
       LOG.error(e.getCause());
       return "";
@@ -125,6 +161,6 @@ public class AvatarServiceImpl implements AvatarService {
   }
 
   public void flushCache() {
-    cache.invalidateAll();
+    userCache.invalidateAll();
   }
 }

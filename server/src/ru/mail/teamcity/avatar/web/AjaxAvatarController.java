@@ -27,12 +27,10 @@ import java.util.regex.Pattern;
 public class AjaxAvatarController extends BaseController {
 
   private final static Logger LOG = Logger.getInstance(AjaxAvatarController.class.getName());
-
   @NotNull
   private final AvatarService avatarService;
   @NotNull
   private final UserModel userModel;
-
   private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\(([\\w.]+)\\)");
 
   public AjaxAvatarController(
@@ -50,7 +48,7 @@ public class AjaxAvatarController extends BaseController {
     new AjaxRequestProcessor().processRequest(request, response, new AjaxRequestProcessor.RequestHandler() {
       public void handleRequest(@NotNull final HttpServletRequest request, @NotNull final HttpServletResponse response, @NotNull final Element xmlResponse) {
         try {
-
+          String avatarUrl;
           String username = request.getParameter("username");
 
           SUser user;
@@ -59,11 +57,8 @@ public class AjaxAvatarController extends BaseController {
           } else {
             user = SessionUser.getUser(request);
           }
-          if (null == user) {
-            return;
-          }
 
-          String avatarUrl = avatarService.getAvatarUrl(user);
+          avatarUrl = (null == user) ? avatarService.getAvatarUrl(username) : avatarService.getAvatarUrl(user);
           if (avatarUrl.startsWith("/")) {
             // Support relative avatar urls
             avatarUrl = request.getContextPath() + avatarUrl;

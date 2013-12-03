@@ -40,15 +40,21 @@ public interface AvatarService {
 
 
   /*
-   * Save avatar supplier, selected by user and supplier's settings
+   * Save avatar supplier, selected by user and supplier's settings.
    */
   public void store(@NotNull SUser user, @Nullable AvatarSupplier avatarSupplier, @NotNull Map<String, String[]> params);
 
   /*
-   * Get avatar url for user
+   * Get avatar url for Teamcity user.
    */
   @NotNull
   public String getAvatarUrl(@NotNull SUser user);
+
+  /*
+   * Get avatar url by string identifier.
+   */
+  @NotNull
+  public String getAvatarUrl(@Nullable String identifier);
 
   public void flushCache();
 }
