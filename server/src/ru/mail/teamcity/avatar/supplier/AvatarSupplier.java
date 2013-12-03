@@ -18,10 +18,18 @@ public interface AvatarSupplier {
   public String getBeanName();
 
   /*
-    Return url of avatar.
+    Return url of avatar from Teamcity user.
    */
   @NotNull
   public String getAvatarUrl(SUser user);
+
+  /*
+    Return url of avatar from some identifier.
+    This method is useful for users not registered in Teamcity, but presenting in VCS changes list.
+    Not all suppliers can support this functionality.
+   */
+  @NotNull
+  public String getAvatarUrl(String identifier);
 
   /*
    * Return name of option for configuration

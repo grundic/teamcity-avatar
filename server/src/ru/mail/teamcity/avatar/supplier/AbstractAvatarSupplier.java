@@ -21,6 +21,11 @@ public abstract class AbstractAvatarSupplier implements AvatarSupplier, BeanName
   }
 
   @NotNull
+  public String getAvatarUrl(String identifier) {
+    return "";
+  }
+
+  @NotNull
   public String getBeanName() {
     return this.BEAN_NAME;
   }
