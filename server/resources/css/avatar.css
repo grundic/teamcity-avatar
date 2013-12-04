@@ -20,19 +20,19 @@ img.big-avatar {
   z-index: 999;
 }
 
-.success, .validation {
+.avatar-success, .avatar-validation {
   border: 1px solid;
   margin: 10px 0;
   padding: 15px 10px 15px 50px;
   background: no-repeat 10px center;
 }
 
-.success {
+.avatar-success {
   color: #4F8A10;
   background-color: #DFF2BF;
 }
 
-.validation {
+.avatar-validation {
   color: #D63301;
   background-color: #FFCCBA;
 }

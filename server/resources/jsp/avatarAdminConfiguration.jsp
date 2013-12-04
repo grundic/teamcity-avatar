@@ -8,7 +8,7 @@
 <jsp:useBean id="actionErrors" type="jetbrains.buildServer.controllers.ActionErrors" scope="request"/>
 
 <c:if test="${actionErrors.hasErrors()}">
-  <ul id="errors" class="validation">
+  <ul id="errors" class="avatar-validation">
     <c:forEach var="error" items="${actionErrors.errors}">
       <li>${error.message}</li>
     </c:forEach>
@@ -39,5 +39,5 @@
   <input type="button" value="Save" class="btn" onclick="saveSuppliers('${pageContext.request.contextPath}')"/>
 </form>
 
-<ul id="errors" class="hidden validation"></ul>
-<div id="success" class="hidden success"></div>
+<ul id="errors" class="hidden avatar-validation"></ul>
+<div id="success" class="hidden avatar-success"></div>

@@ -36,5 +36,5 @@
 
 </l:settingsBlock>
 
-<ul id="errors" class="hidden validation"></ul>
-<div id="success" class="hidden success"></div>
+<ul id="errors" class="hidden avatar-validation"></ul>
+<div id="success" class="hidden avatar-success"></div>

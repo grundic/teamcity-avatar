@@ -3,7 +3,7 @@
 #if($errors)
 <ul>
   #foreach($error in $errors)
-      <li class="validation">$error</li>
+      <li class="avatar-validation">$error</li>
   #end
 </ul>
 #end
