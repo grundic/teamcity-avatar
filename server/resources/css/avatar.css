@@ -9,7 +9,7 @@
 img.avatar {
   margin-right: 5px;
   height: 14px;
-  width: 14px;
+  width: auto;
 }
 
 img.big-avatar {
