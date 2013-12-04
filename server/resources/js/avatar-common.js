@@ -73,13 +73,13 @@ var Avatar = {
    * That's what this function do.
    */
   showPopupNearElementHack: function () {
-
-    // we want to add our code after this line
-    var searchString = "element.attr('data-popup', this._name);";
     // save current function
     var currentShowPopupNearElement = BS.Popup.prototype.showPopupNearElement.toString();
     // replace it, adding call to setting avatar function
-    var hackedShowPopupNearElement = currentShowPopupNearElement.replace(searchString, searchString + '\n' + 'Avatar.addAvatarToPendingChanges();');
+    var hackedShowPopupNearElement = currentShowPopupNearElement.replace(
+            /(\w+\.attr\(['"]data-popup['"]\s*,\s*this\._name\);)/,
+            '$1\nAvatar.addAvatarToPendingChanges();'
+    );
 
     // hack it!
     eval('BS.Popup.prototype.showPopupNearElement = ' + hackedShowPopupNearElement);
