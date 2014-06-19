@@ -78,7 +78,7 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
       ObjectMapper objectMapper = new ObjectMapper();
       SysMailRuResponse sysMailRuResponse = objectMapper.readValue(response.getEntity().getContent(), SysMailRuResponse.class);
       if (sysMailRuResponse.getObjects().size() == 1) {
-        return String.format("http://sys.mail.ru%s", sysMailRuResponse.getObjects().get(0).getProfile().getFoto());
+        return sysMailRuResponse.getObjects().get(0).getProfile().getFoto();
       } else {
         errors.add(String.format("Can't find suitable user in sys.mail.ru catalog for your username '%s'", username));
       }
