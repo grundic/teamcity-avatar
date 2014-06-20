@@ -18,13 +18,11 @@ var Avatar = {
   /*
    * Execute ajax request and get avatar url for username.
    */
-  _getAvatarUrl: function (username, callback, param_hash) {
+  _getAvatarUrl: function (parameters, callback, param_hash) {
     var url = window['base_uri'] + "/avatarAjax.html";
-    if (username) {
-      url += "?username=" + username;
-    }
-
-    if (username in Avatar._cache) {
+    url += "?" + $j.param(parameters);
+    username = parameters["username"];
+    if (username !== undefined && username in Avatar._cache) {
       callback($j.extend({"avatarUrl": Avatar._cache[username]}, param_hash));
     } else {
       BS.ajaxRequest(encodeURI(url), {
@@ -97,7 +95,7 @@ var Avatar = {
       var element_id = "avatar-pending-" + $this._hashCode(username);
 
       if ($j("#" + element_id).length == 0) {
-        $this._getAvatarUrl(username, function (param_hash) {
+        $this._getAvatarUrl({"username":username}, function (param_hash) {
           $j(param_hash['this']).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
           $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         }, {"this": this});
@@ -117,7 +115,7 @@ var Avatar = {
         var username = match[1];
         var element_id = "avatar-pending-div-" + $this._hashCode(username) + "-" + i;
 
-        $this._getAvatarUrl(username, function (param_hash) {
+        $this._getAvatarUrl({"username":username}, function (param_hash) {
           $j($span).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
           $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         });
