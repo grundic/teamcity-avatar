@@ -18,4 +18,6 @@ $j(document).ready(function () {
   Avatar.addAvatarToUserPanel();
   Avatar.showPopupNearElementHack();
   Avatar.addAvatarToPendingChangesDivTab();
+  Avatar.addAvatarToTriggeredByBuild();
+  Avatar.addAvatarToTriggeredByQueuedBuild();
 });

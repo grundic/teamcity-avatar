@@ -1,12 +1,14 @@
 package ru.mail.teamcity.avatar.web;
 
 import com.intellij.openapi.diagnostic.Logger;
+import jetbrains.buildServer.ServiceLocator;
 import jetbrains.buildServer.controllers.AjaxRequestProcessor;
 import jetbrains.buildServer.controllers.BaseController;
+import jetbrains.buildServer.serverSide.*;
+import jetbrains.buildServer.users.InvalidUsernameException;
 import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.users.UserModel;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
-import jetbrains.buildServer.web.util.SessionUser;
 import org.jdom.Element;
 import org.jdom.Text;
 import org.jetbrains.annotations.NotNull;
@@ -30,14 +32,17 @@ public class AjaxAvatarController extends BaseController {
   @NotNull
   private final AvatarService avatarService;
   @NotNull
+  private final ServiceLocator myServiceLocator;
+  @NotNull
   private final UserModel userModel;
   private final Pattern USER_EXTENDED_NAME = Pattern.compile("\\(([\\w.]+)\\)");
 
   public AjaxAvatarController(
           @NotNull WebControllerManager manager,
           @NotNull AvatarService avatarService,
-          @NotNull UserModel userModel) {
+          @NotNull ServiceLocator serviceLocator, @NotNull UserModel userModel) {
     this.avatarService = avatarService;
+    myServiceLocator = serviceLocator;
     this.userModel = userModel;
     manager.registerController("/avatarAjax.html", this);
   }
@@ -49,13 +54,17 @@ public class AjaxAvatarController extends BaseController {
       public void handleRequest(@NotNull final HttpServletRequest request, @NotNull final HttpServletResponse response, @NotNull final Element xmlResponse) {
         try {
           String avatarUrl;
+          SUser user = null;
           String username = request.getParameter("username");
+          String buildId = request.getParameter("buildId");
+          String queuedId = request.getParameter("queuedId");
 
-          SUser user;
-          if (null != username) {
-            user = getUser(username);
-          } else {
-            user = SessionUser.getUser(request);
+          if (null != username && !username.isEmpty()) {
+            user = getUserByUsername(username);
+          } else if (null != buildId && !buildId.isEmpty()) {
+            user = getTriggeredByUser(buildId);
+          } else if (null != queuedId && !queuedId.isEmpty()) {
+            user = getQueuedTriggeredByUser(queuedId);
           }
 
           avatarUrl = (null == user) ? avatarService.getAvatarUrl(username) : avatarService.getAvatarUrl(user);
@@ -79,7 +88,7 @@ public class AjaxAvatarController extends BaseController {
   }
 
   @Nullable
-  private SUser getUser(@NotNull String username) {
+  private SUser getUserByUsername(@NotNull String username) throws InvalidUsernameException {
     SUser user = userModel.findUserAccount(null, username);
     if (null == user) {
       Matcher matcher = USER_EXTENDED_NAME.matcher(username);
@@ -89,5 +98,44 @@ public class AjaxAvatarController extends BaseController {
     }
 
     return user;
+  }
+
+  @Nullable
+  private SUser getTriggeredByUser(String buildIdParam) {
+    int buildIdVal;
+    try {
+      buildIdVal = Integer.parseInt(buildIdParam);
+    } catch (NumberFormatException e) {
+      LOG.error(String.format("Failed to parse integer from %s", buildIdParam));
+      return null;
+    }
+
+    SBuild build = myServiceLocator.getSingletonService(BuildsManager.class).findBuildInstanceById(buildIdVal);
+    if (null != build) {
+      return build.getTriggeredBy().getUser();
+    }
+
+    return null;
+  }
+
+  @Nullable
+  private SUser getQueuedTriggeredByUser(String queueIdParam) {
+    int queueId;
+    try {
+      queueId = Integer.parseInt(queueIdParam);
+    } catch (NumberFormatException e) {
+      LOG.error(String.format("Failed to parse integer from %s", queueIdParam));
+      return null;
+    }
+
+    BuildPromotionManager buildPromotionManager = myServiceLocator.getSingletonService(BuildPromotionManager.class);
+    BuildPromotion buildPromotion = buildPromotionManager.findPromotionById(queueId);
+    if (null != buildPromotion) {
+      SQueuedBuild queuedBuild = buildPromotion.getQueuedBuild();
+      if (null != queuedBuild) {
+        return queuedBuild.getTriggeredBy().getUser();
+      }
+    }
+    return null;
   }
 }

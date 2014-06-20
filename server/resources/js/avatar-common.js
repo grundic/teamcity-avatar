@@ -16,6 +16,16 @@ var Avatar = {
   },
 
   /*
+   * Return current url parameter by name.
+   */
+  _getParameterByName: function (name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  },
+
+  /*
    * Execute ajax request and get avatar url for username.
    */
   _getAvatarUrl: function (parameters, callback, param_hash) {
@@ -95,7 +105,7 @@ var Avatar = {
       var element_id = "avatar-pending-" + $this._hashCode(username);
 
       if ($j("#" + element_id).length == 0) {
-        $this._getAvatarUrl({"username":username}, function (param_hash) {
+        $this._getAvatarUrl({"username": username}, function (param_hash) {
           $j(param_hash['this']).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
           $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         }, {"this": this});
@@ -115,7 +125,7 @@ var Avatar = {
         var username = match[1];
         var element_id = "avatar-pending-div-" + $this._hashCode(username) + "-" + i;
 
-        $this._getAvatarUrl({"username":username}, function (param_hash) {
+        $this._getAvatarUrl({"username": username}, function (param_hash) {
           $j($span).before('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
           $this.addBigAvatar(username, param_hash['avatarUrl'], $j("#" + element_id));
         });
@@ -124,5 +134,42 @@ var Avatar = {
       }
     })
     );
+  },
+
+  addAvatarToTriggeredByBuild: function () {
+    if (location.pathname.indexOf("viewLog.html") == -1) {
+      return;
+    }
+    var $this = this;
+    var triggeredByRegexp = /([\w\W]+) on \d+/g;
+
+    var triggeredBy = $j('td:contains("Triggered by")').next('td');
+    if (triggeredBy.length > 0) {
+      buildId = this._getParameterByName("buildId");
+      var element_id = "avatar-triggered-by-" + buildId;
+      $this._getAvatarUrl({"buildId": buildId}, function (param_hash) {
+        triggeredBy.prepend('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
+        $this.addBigAvatar(buildId, param_hash['avatarUrl'], $j("#" + element_id));
+      });
+
+    }
+  },
+
+  addAvatarToTriggeredByQueuedBuild: function () {
+    if (location.pathname.indexOf("queue.html") == -1) {
+      return;
+    }
+
+    var $this = this;
+    $j($j('#queueTableRows .draggable').each(function (i) {
+      var $queueDiv = this;
+      var $queueId = $queueDiv.id.replace("queue_", "");
+      var element_id = "avatar-queue-triggered-by-" + $queueId;
+      $this._getAvatarUrl({"queuedId": $queueId}, function (param_hash) {
+        var $triggeredBy = $j($queueDiv).find(".triggeredBy")[0];
+        $j($triggeredBy).prepend('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
+        $this.addBigAvatar($queueId, param_hash['avatarUrl'], $j("#" + element_id));
+      });
+    }));
   }
 };
