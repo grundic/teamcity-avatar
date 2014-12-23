@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jira">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jira/jira-rest-java-client-1.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
