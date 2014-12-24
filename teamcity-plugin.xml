@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>teamcity-avatar</name>
+    <display-name>Avatar</display-name>
+    <version>@Version@</version>
+    <description>Plugin for displaying user avatars in Teamcity</description>
+    <download-url>https://github.com/grundic/teamcity-avatar</download-url>
+    <email>systray@yandex.ru</email>
+    <vendor>
+      <name>Grigory Chernyshev [mail.ru]</name>
+      <url>http://mail.ru</url>
+      <logo>https://limg.imgsmail.ru/splash/v/i/logo_wide.v5.png.cca77aaebe6fac8f2a61ce09e2f076fdfa198e76.png</logo>
+    </vendor>
+  </info>
+  <deployment use-separate-classloader="true" />
+</teamcity-plugin>
