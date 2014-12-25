@@ -22,6 +22,11 @@ Also, avatar will be displayed in pending changes for each user with configured 
 Important note: user must have *View user profile* permission in order to view avatars of other people. You can add
 this permission in Administration area in Roles tab.
 
+Download
+--------
+Binaries of plugin are hosted on bintray: [ ![Download](https://api.bintray.com/packages/grundic/generic/teamcity-avatar/images/download.svg) ](https://bintray.com/grundic/generic/teamcity-avatar/_latestVersion)
+If you want to build plugin from source, just execute maven like so: ```mvn package``` - in `target` folder should be archive with plugin.
+
 Installation
 ------------
 Guide from Teamcity's documentation:
@@ -56,8 +61,3 @@ Screenshots
 ![Screenshot2](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-2.png?raw=true)
 ![Screenshot3](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-3.png?raw=true)
 ![Screenshot4](https://github.com/grundic/teamcity-avatar/blob/master/screenshots/screen-4.png?raw=true)
-
-Download
---------
-Binaries of plugin are hosted on bintray: [ ![Download](https://api.bintray.com/packages/grundic/generic/teamcity-avatar/images/download.svg) ](https://bintray.com/grundic/generic/teamcity-avatar/_latestVersion)
-If you wish build plugin from source just execute maven like so: ```mvn package```
