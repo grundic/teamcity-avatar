@@ -5,7 +5,7 @@
     <parent>
         <artifactId>avatar</artifactId>
         <groupId>ru.mail.teamcity</groupId>
-        <version>1.0</version>
+        <version>${global.version}</version>
     </parent>
     <artifactId>avatar-server</artifactId>
     <packaging>jar</packaging>

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>avatar</artifactId>
         <groupId>ru.mail.teamcity</groupId>
-        <version>1.0</version>
+        <version>${global.version}</version>
     </parent>
     <artifactId>build</artifactId>
     <packaging>pom</packaging>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>ru.mail.teamcity</groupId>
             <artifactId>avatar-server</artifactId>
-            <version>1.0</version>
+            <version>${global.version}</version>
         </dependency>
     </dependencies>
     <build>

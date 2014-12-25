@@ -3,10 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.mail.teamcity</groupId>
   <artifactId>avatar</artifactId>
-  <version>1.0</version>
+  <version>${global.version}</version>
   <packaging>pom</packaging>
   <properties>
       <teamcity-version>9.0</teamcity-version>
+      <global.version>1.0</global.version>
   </properties>
   <repositories>
     <repository>
