@@ -20,8 +20,8 @@ public class JsInjectionExtension extends SimplePageExtension {
             @NotNull SBuildServer server,
             @NotNull PagePlaces pagePlaces,
             @NotNull PluginDescriptor descriptor) {
-        super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("jsp/avatar.jsp"));
-        addCssFile(descriptor.getPluginResourcesPath("css/avatar.css"));
+        super(pagePlaces, PlaceId.ALL_PAGES_FOOTER, "teamcity-avatar", descriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/jsp/avatar.jsp"));
+        addCssFile(descriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/css/avatar.css"));
 
         int version = (int) server.getServerMajorVersion();
         int minVersion = Collections.min(AppConfiguration.SUPPORTED_VERSIONS);
@@ -29,8 +29,8 @@ public class JsInjectionExtension extends SimplePageExtension {
             int suitableVersion = AppConfiguration.SUPPORTED_VERSIONS.contains(version) ?
                     version : Collections.max(AppConfiguration.SUPPORTED_VERSIONS);
 
-            addJsFile(descriptor.getPluginResourcesPath("js/avatar-common.js"));
-            addJsFile(descriptor.getPluginResourcesPath(String.format("js/avatar-%d.js", suitableVersion)));
+            addJsFile(descriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/js/avatar-common.js"));
+            addJsFile(descriptor.getPluginResourcesPath(String.format("ru/mail/teamcity/avatar/js/avatar-%d.js", suitableVersion)));
             register();
         }
     }

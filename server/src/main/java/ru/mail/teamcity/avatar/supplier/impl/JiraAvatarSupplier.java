@@ -66,7 +66,7 @@ public class JiraAvatarSupplier extends AbstractAvatarSupplier implements Indivi
 
   @NotNull
   public String getTemplate() {
-    return "templates/jira.vm";
+    return "ru/mail/teamcity/avatar/templates/jira.vm";
   }
 
   @NotNull

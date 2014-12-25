@@ -98,7 +98,7 @@ public class SysMailRuAvatarSupplier extends AbstractAvatarSupplier implements I
 
   @NotNull
   public String getTemplate() {
-    return "templates/sys.mail.ru.vm";
+    return "ru/mail/teamcity/avatar/templates/sys.mail.ru.vm";
   }
 
   @NotNull

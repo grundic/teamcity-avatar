@@ -30,7 +30,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
   private final PropertyKey PROPERTY_KEY = new SimplePropertyKey(PROPERTY_KEY_NAME);
 
   public BundledAvatarSupplier(@NotNull SBuildServer server, @NotNull PluginDescriptor pluginDescriptor) {
-    PLUGIN_RESOURCE_PATH = pluginDescriptor.getPluginResourcesPath("/image/avatars");
+    PLUGIN_RESOURCE_PATH = pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/image/avatars");
     BUNDLED_AVATARS_PATH = server.getServerRootPath() + PLUGIN_RESOURCE_PATH;
   }
 
@@ -46,7 +46,7 @@ public class BundledAvatarSupplier extends AbstractAvatarSupplier {
 
   @NotNull
   public String getTemplate() {
-    return "templates/bundled.vm";
+    return "ru/mail/teamcity/avatar/templates/bundled.vm";
   }
 
   @NotNull

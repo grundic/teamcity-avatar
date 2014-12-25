@@ -31,7 +31,7 @@ public class DirectUrlAvatarSupplier extends AbstractAvatarSupplier {
 
   @NotNull
   public String getTemplate() {
-    return "templates/directUrl.vm";
+    return "ru/mail/teamcity/avatar/templates/directUrl.vm";
   }
 
   @NotNull

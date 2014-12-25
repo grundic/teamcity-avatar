@@ -24,7 +24,7 @@ public class DisabledAvatarSupplier extends AbstractAvatarSupplier {
 
   @NotNull
   public String getTemplate() {
-    return "templates/disabled.vm";
+    return "ru/mail/teamcity/avatar/templates/disabled.vm";
   }
 
   @NotNull

@@ -65,7 +65,7 @@ public class TumblrAvatarSupplier extends AbstractAvatarSupplier implements Indi
 
   @NotNull
   public String getTemplate() {
-    return "templates/tumblr.vm";
+    return "ru/mail/teamcity/avatar/templates/tumblr.vm";
   }
 
   @NotNull

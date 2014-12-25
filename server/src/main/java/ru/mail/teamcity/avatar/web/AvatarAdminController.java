@@ -58,7 +58,7 @@ public class AvatarAdminController extends BaseFormXmlController {
           @NotNull Map<String, AvatarSupplier> suppliers) {
     super(server);
 
-    myJspPagePath = pluginDescriptor.getPluginResourcesPath("jsp/avatarAdminConfiguration.jsp");
+    myJspPagePath = pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/jsp/avatarAdminConfiguration.jsp");
     this.serverPaths = serverPaths;
     this.avatarService = avatarService;
     this.suppliers = suppliers;
@@ -128,7 +128,7 @@ public class AvatarAdminController extends BaseFormXmlController {
     final SimpleCustomTab tab = new AdminPage(
             pagePlaces,
             TAB_ID,
-            pluginDescriptor.getPluginResourcesPath("jsp/avatarAdminConfigurationTab.jsp"),
+            pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/jsp/avatarAdminConfigurationTab.jsp"),
             "Avatar") {
 
       @NotNull
@@ -137,9 +137,9 @@ public class AvatarAdminController extends BaseFormXmlController {
       }
     };
 
-    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/jquery-ui-1.10.3.sortable.min.js"));
-    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/xml2json.js"));
-    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/avatar-admin.js"));
+    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/js/jquery-ui-1.10.3.sortable.min.js"));
+    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/js/xml2json.js"));
+    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/js/avatar-admin.js"));
     tab.register();
   }
 }

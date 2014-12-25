@@ -34,7 +34,7 @@ public class AvatarProfileController extends BaseFormXmlController {
           @NotNull final PagePlaces pagePlaces) {
     myAvatarService = avatarService;
 
-    myJspPagePath = pluginDescriptor.getPluginResourcesPath("jsp/avatarProfile.jsp");
+    myJspPagePath = pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/jsp/avatarProfile.jsp");
     webControllerManager.registerController("/avatarProfile.html", this);
     registerAvatarProfileTab(pluginDescriptor, pagePlaces);
   }
@@ -44,11 +44,11 @@ public class AvatarProfileController extends BaseFormXmlController {
             pagePlaces,
             PlaceId.MY_TOOLS_TABS,
             AppConfiguration.PLUGIN_NAME,
-            pluginDescriptor.getPluginResourcesPath("jsp/avatarProfileTab.jsp"),
+            pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/jsp/avatarProfileTab.jsp"),
             "Avatar") {
     };
 
-    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("js/avatar-profile.js"));
+    tab.addJsFile(pluginDescriptor.getPluginResourcesPath("ru/mail/teamcity/avatar/js/avatar-profile.js"));
     tab.register();
   }
 

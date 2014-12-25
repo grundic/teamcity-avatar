@@ -43,7 +43,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
 
   @NotNull
   public String getTemplate() {
-    return "templates/gravatar.vm";
+    return "ru/mail/teamcity/avatar/templates/gravatar.vm";
   }
 
   @NotNull
