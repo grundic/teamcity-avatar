@@ -31,7 +31,7 @@ var Avatar = {
   _getAvatarUrl: function (parameters, callback, param_hash) {
     var url = window['base_uri'] + "/avatarAjax.html";
     url += "?" + $j.param(parameters);
-    username = parameters["username"];
+    var username = parameters["username"];
     if (username !== undefined && username in Avatar._cache) {
       callback($j.extend({"avatarUrl": Avatar._cache[username]}, param_hash));
     } else {
@@ -141,11 +141,10 @@ var Avatar = {
       return;
     }
     var $this = this;
-    var triggeredByRegexp = /([\w\W]+) on \d+/g;
 
     var triggeredBy = $j('td:contains("Triggered by")').next('td');
     if (triggeredBy.length > 0) {
-      buildId = this._getParameterByName("buildId");
+      var buildId = this._getParameterByName("buildId");
       var element_id = "avatar-triggered-by-" + buildId;
       $this._getAvatarUrl({"buildId": buildId}, function (param_hash) {
         triggeredBy.prepend('<img class="avatar" id="' + element_id + '" src="' + param_hash['avatarUrl'] + '">');
@@ -161,7 +160,7 @@ var Avatar = {
     }
 
     var $this = this;
-    $j($j('#queueTableRows .draggable').each(function (i) {
+    $j($j('#queueTableRows .draggable').each(function () {
       var $queueDiv = this;
       var $queueId = $queueDiv.id.replace("queue_", "");
       var element_id = "avatar-queue-triggered-by-" + $queueId;
