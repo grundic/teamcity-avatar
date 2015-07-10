@@ -3,6 +3,7 @@ package ru.mail.teamcity.avatar.supplier.impl;
 import com.timgroup.jgravatar.Gravatar;
 import com.timgroup.jgravatar.GravatarDefaultImage;
 import com.timgroup.jgravatar.GravatarRating;
+import jetbrains.buildServer.serverSide.impl.ServerSettings;
 import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
@@ -17,42 +18,50 @@ import java.util.Map;
  */
 public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements IndividualAvatarSupplier {
 
-  @NotNull
-  private final Gravatar gravatar;
+    @NotNull
+    private final Gravatar gravatar;
 
-  public GravatarAvatarSupplier() {
-    gravatar = new Gravatar();
-    gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
-    gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-  }
+    @NotNull
+    private final ServerSettings serverSettings;
 
-  @NotNull
-  public String getAvatarUrl(@NotNull SUser user) {
-    String mail = user.getEmail();
-    if (null != mail) {
-      // TODO: check if avatar is found
-      return gravatar.getUrl(mail);
+    public GravatarAvatarSupplier(@NotNull ServerSettings serverSettings) {
+        this.serverSettings = serverSettings;
+        gravatar = new Gravatar();
+        gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
+        gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
     }
-    return "";
-  }
 
-  @NotNull
-  public String getOptionName() {
-    return "Gravatar";
-  }
+    @NotNull
+    public String getAvatarUrl(@NotNull SUser user) {
+        String mail = user.getEmail();
+        if (null != mail) {
+            String url = gravatar.getUrl(mail);
+            String rootUrl = serverSettings.getRootUrl();
+            if (rootUrl != null && rootUrl.startsWith("https://")) {
+                url = url.replace("http://", "https://");
+            }
+            return url;
+        }
+        return "";
+    }
 
-  @NotNull
-  public String getTemplate() {
-    return "ru/mail/teamcity/avatar/templates/gravatar.vm";
-  }
+    @NotNull
+    public String getOptionName() {
+        return "Gravatar";
+    }
 
-  @NotNull
-  public Map<String, Object> getTemplateParams(@NotNull SUser user) {
-    HashMap<String, Object> params = new HashMap<String, Object>();
-    params.put("avatarUrl", getAvatarUrl(user));
-    return params;
-  }
+    @NotNull
+    public String getTemplate() {
+        return "ru/mail/teamcity/avatar/templates/gravatar.vm";
+    }
 
-  public void store(SUser user, Map<String, String[]> params) {
-  }
+    @NotNull
+    public Map<String, Object> getTemplateParams(@NotNull SUser user) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("avatarUrl", getAvatarUrl(user));
+        return params;
+    }
+
+    public void store(SUser user, Map<String, String[]> params) {
+    }
 }
