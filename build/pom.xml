@@ -5,7 +5,7 @@
     <parent>
         <artifactId>avatar</artifactId>
         <groupId>ru.mail.teamcity</groupId>
-        <version>1.2</version>
+        <version>1.3</version>
     </parent>
     <artifactId>build</artifactId>
     <packaging>pom</packaging>

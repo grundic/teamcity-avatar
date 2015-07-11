@@ -3,7 +3,6 @@ package ru.mail.teamcity.avatar.supplier.impl;
 import com.timgroup.jgravatar.Gravatar;
 import com.timgroup.jgravatar.GravatarDefaultImage;
 import com.timgroup.jgravatar.GravatarRating;
-import jetbrains.buildServer.serverSide.impl.ServerSettings;
 import jetbrains.buildServer.users.SUser;
 import org.jetbrains.annotations.NotNull;
 import ru.mail.teamcity.avatar.supplier.AbstractAvatarSupplier;
@@ -21,11 +20,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
     @NotNull
     private final Gravatar gravatar;
 
-    @NotNull
-    private final ServerSettings serverSettings;
-
-    public GravatarAvatarSupplier(@NotNull ServerSettings serverSettings) {
-        this.serverSettings = serverSettings;
+    public GravatarAvatarSupplier() {
         gravatar = new Gravatar();
         gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
         gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
@@ -36,10 +31,7 @@ public class GravatarAvatarSupplier extends AbstractAvatarSupplier implements In
         String mail = user.getEmail();
         if (null != mail) {
             String url = gravatar.getUrl(mail);
-            String rootUrl = serverSettings.getRootUrl();
-            if (rootUrl != null && rootUrl.startsWith("https://")) {
-                url = url.replace("http://", "https://");
-            }
+            url = url.replace("http://", "//");
             return url;
         }
         return "";
