@@ -37,7 +37,7 @@
             <!-- Dependency from non open API-->
             <!-- How to install: -->
             <!-- mvn install:install-file -Dfile=webapps/ROOT/WEB-INF/lib/server.jar -DgroupId=org.jetbrains.teamcity -DartifactId=server -Dversion=9.0 -Dpackaging=jar -->
-            <groupId>org.jetbrains.teamcity</groupId>
+            <groupId>org.jetbrains.teamcity.internal</groupId>
             <artifactId>server</artifactId>
             <version>${teamcity-version}</version>
             <scope>provided</scope>
